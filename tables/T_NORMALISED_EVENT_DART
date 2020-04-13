@@ -1,0 +1,52 @@
+create trigger T_NORMALISED_EVENT_DART
+          after delete on NORMALISED_EVENT
+ for each row
+ declare
+     opcode number (2);
+     current_datetime date;
+     threshold number (2);
+begin
+    threshold         := 5;
+    current_datetime := SYSDATE;
+
+    if (deleting or updating) then
+
+        if months_between(current_datetime, :old.charge_start_date) < threshold then
+
+            if (deleting) then
+                opcode := 1;
+            else
+                opcode := 2;
+            end if;
+
+            insert into NORMALISED_EVENT_A
+                      ( ENTRY_DATE, USERNAME, OPERATION_CODE,
+                        NORMALISED_EVENT_ID, CHARGE_START_DATE, NORMALISED_EVENT_FILE_ID,GENERAL_20)
+                values( current_datetime, USER, opcode,
+                        :old.NORMALISED_EVENT_ID, :old.CHARGE_START_DATE,:old.NORMALISED_EVENT_FILE_ID,
+                        (SELECT FILENAME FROM NORMALISED_EVENT_FILE WHERE NORMALISED_EVENT_FILE_ID=:old.NORMALISED_EVENT_FILE_ID));
+        end if;
+    end if;
+
+    if (inserting or updating) then
+
+        if months_between(current_datetime, :new.charge_start_date) < threshold then
+
+            if (inserting) then
+                opcode := 0;
+            else
+                opcode := 3;
+            end if;
+
+            insert into NORMALISED_EVENT_A
+                      ( ENTRY_DATE, USERNAME, OPERATION_CODE,
+                        NORMALISED_EVENT_ID, CHARGE_START_DATE, NORMALISED_EVENT_FILE_ID,GENERAL_20)
+                values( current_datetime, USER, opcode,
+                        :new.NORMALISED_EVENT_ID, :new.CHARGE_START_DATE,:old.NORMALISED_EVENT_FILE_ID,
+                        (SELECT FILENAME FROM NORMALISED_EVENT_FILE WHERE NORMALISED_EVENT_FILE_ID=:old.NORMALISED_EVENT_FILE_ID));
+        end if;
+    end if;
+end;
+/
+
+    

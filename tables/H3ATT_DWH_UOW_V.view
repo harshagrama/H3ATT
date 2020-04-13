@@ -1,0 +1,81 @@
+#---------------------------------------------------------------------------
+#
+#   File:       H3ATT_DWH_UOW_V.view
+#   Created:    25-Mar-2020 13:04:46
+#   Creator:    t_nagavaha  (Admin Harshendrakumar Nagavarapalya Nagaraj)
+#   $Revision:$
+#   $Id:$
+#
+# ===========================================================================
+# COPYRIGHT (C) 2020 CSG SYSTEMS INTERNATIONAL, INC. AND/OR ITS 
+# AFFILIATES ("CSG INTERNATIONAL"). ALL RIGHTS RESERVED. THE INFORMATION
+# CONTAINED WITHIN THIS DOCUMENT OR APPLICATION IS THE PROPERTY OF CSG 
+# INTERNATIONAL, WHICH IS CONFIDENTIAL AND PROTECTED BY INTERNATIONAL 
+# COPYRIGHT LAWS AND ANY UNAUTHORISED USE OF THIS DOCUMENT OR APPLICATION 
+# OR ITS CONTENTS MAY VIOLATE COPYRIGHT, TRADEMARK, AND OTHER LAWS. NO 
+# PART OF THIS DOCUMENT OR APPLICATION MAY BE PHOTOCOPIED, REPRODUCED 
+# OR TRANSLATED IN ANY FORM OR BY ANY MEANS, OR STORED IN A RETRIEVAL 
+# SYSTEM OR TRANSMITTED ELECTRONICALLYOR OTHERWISE, WITHOUT THE PRIOR 
+# WRITTEN CONSENT OF CSG INTERNATIONAL.
+# ===========================================================================
+#
+# NOTES:
+#   1. Keep all column and view names under 32 characters long
+#   2. Column details are ignored for views by must be supplied for
+#      documentation
+#
+# REVISION HISTORY:
+#   $Log:$
+#
+#---------------------------------------------------------------------------
+
+A.3 H3ATT_DWH_UOW_V
+
+Uses
+    DESCRIPTION GOES HERE
+
+Column Details
+
+    COLUMN1         VARCHAR(255)        NOT NULL
+        Text field (1 to 2000 characters).
+
+    COLUMN2         NUMBER(8)           NOT NULL
+        integer (1 to 38 digits)
+
+    COLUMN3         NUMBER(12,2)        NOT NULL
+        fixed point number (up to 38 digits with between -84 (very large number)
+        and 127 (very small number) decimal places
+
+    COLUMN4         NUMBER              NOT NULL
+        floating point number
+
+    COLUMN5         DATE                NOT NULL
+        date/time field
+
+    COLUMN6         LONG                NOT NULL
+        Text data up to 2Gb (Non searchable)
+
+    COLUMN7         RAW(255)            NOT NULL
+        Binary data up to 255 bytes (Non searchable)
+
+    COLUMN8         LONG RAW            NOT NULL
+        Binary data up to 2Gb (Non searchable)
+
+View Definition
+
+SELECT
+    a.colunm1       "COLUMN1"
+    b.colunm1       "COLUNM2"
+FROM
+    tablea a,
+    tableb b
+WHERE
+    a.colunm1 IS NOT NULL       AND
+    a.column1 = b.column1
+ORDER BY
+    a.column1
+
+
+#
+#   End (of H3ATT_DWH_UOW_V.view)
+#

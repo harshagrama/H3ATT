@@ -1,0 +1,81 @@
+#---------------------------------------------------------------------------
+#
+#   File:       H3ATT_DWH_NORMALISED_EVENT_A.table
+#   Created:    11-Mar-2020 15:34:09
+#   Creator:    t_nagavaha  (Admin Harshendrakumar Nagavarapalya Nagaraj)
+#   $Revision: 1.1 $
+#   $Id: H3ATT_DWH_NORMALISED_EVENT_A.table,v 1.1 2020/03/11 15:22:23 ghazizra Exp $
+#
+# ===========================================================================
+# COPYRIGHT (C) 2020 CSG SYSTEMS INTERNATIONAL, INC. AND/OR ITS 
+# AFFILIATES ("CSG INTERNATIONAL"). ALL RIGHTS RESERVED. THE INFORMATION
+# CONTAINED WITHIN THIS DOCUMENT OR APPLICATION IS THE PROPERTY OF CSG 
+# INTERNATIONAL, WHICH IS CONFIDENTIAL AND PROTECTED BY INTERNATIONAL 
+# COPYRIGHT LAWS AND ANY UNAUTHORISED USE OF THIS DOCUMENT OR APPLICATION 
+# OR ITS CONTENTS MAY VIOLATE COPYRIGHT, TRADEMARK, AND OTHER LAWS. NO 
+# PART OF THIS DOCUMENT OR APPLICATION MAY BE PHOTOCOPIED, REPRODUCED 
+# OR TRANSLATED IN ANY FORM OR BY ANY MEANS, OR STORED IN A RETRIEVAL 
+# SYSTEM OR TRANSMITTED ELECTRONICALLYOR OTHERWISE, WITHOUT THE PRIOR 
+# WRITTEN CONSENT OF CSG INTERNATIONAL.
+# ===========================================================================
+#
+# NOTES:
+#   1. Keep table name under 26 characters long to allow for archive
+#      Audit table names appending _A_R.
+#   2. Keep all column, view, index, constraint names under 30
+#      characters long
+#   3. Foreign Keys must always be supported by an index.
+#   4. Choose a class that represents the growth characteristic of the table
+#      eg. If the table grows with the number of tasks in the system, use Task
+#      If the table is transient, use Temp
+#      If the table is not dependent on any other, use Misc
+#   5. Choose a size that represents the expected table size within the class
+#
+# REVISION HISTORY:
+#   $Log: H3ATT_DWH_NORMALISED_EVENT_A.table,v $
+#   Revision 1.1  2020/03/11 15:22:23  ghazizra
+#   Ticket CF-8968: New tables to replace core table NORMALISED_EVENT_A.
+#
+#
+#---------------------------------------------------------------------------
+
+A.3 H3ATT_DWH_NORMALISED_EVENT_A
+
+Uses
+    AUDIT TABLE FOR DWH
+
+Column Details
+
+    ENTRY_DATE                  DATE            NOT NULL
+    USERNAME                    VARCHAR2(30)    NOT NULL
+    OPERATION_CODE              NUMBER(1)       NOT NULL 
+    NORMALISED_EVENT_ID         NUMBER(15)      NOT NULL     
+    CHARGE_START_DATE           DATE
+        
+    
+     
+Key and Index Details
+Primary Key:    P_H3ATT_DWH_NORMALISED_EVENT_A
+                (NORMALISED_EVENT_ID)
+
+Index:          I_H3ATT_DWH_NE_A_ENTRY_DATE
+                (ENTRY_DATE)
+
+
+Other Constraints
+
+    1. DVP checks, etc
+
+
+Classification
+
+Type:           Normal 
+
+Class:          Misc 
+
+Sizing:         Medium 
+
+
+#
+#   End (of H3ATT_DWH_NORMALISED_EVENT_A.table)
+#

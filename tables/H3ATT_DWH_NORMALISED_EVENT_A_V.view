@@ -1,0 +1,213 @@
+#---------------------------------------------------------------------------
+#
+#   File:       H3ATT_DWH_NORMALISED_EVENT_A_V.view
+#   Created:    06-Feb-2020 15:27:57
+#   Creator:    t_nagavaha  (Admin Harshendrakumar Nagavarapalya Nagaraj)
+#   $Revision: 1.4 $
+#   $Id: H3ATT_DWH_NORMALISED_EVENT_A_V.view,v 1.4 2020/02/13 19:28:19 t_nagavaha Exp $
+#
+# ===========================================================================
+# COPYRIGHT (C) 2020 CSG SYSTEMS INTERNATIONAL, INC. AND/OR ITS 
+# AFFILIATES ("CSG INTERNATIONAL"). ALL RIGHTS RESERVED. THE INFORMATION
+# CONTAINED WITHIN THIS DOCUMENT OR APPLICATION IS THE PROPERTY OF CSG 
+# INTERNATIONAL, WHICH IS CONFIDENTIAL AND PROTECTED BY INTERNATIONAL 
+# COPYRIGHT LAWS AND ANY UNAUTHORISED USE OF THIS DOCUMENT OR APPLICATION 
+# OR ITS CONTENTS MAY VIOLATE COPYRIGHT, TRADEMARK, AND OTHER LAWS. NO 
+# PART OF THIS DOCUMENT OR APPLICATION MAY BE PHOTOCOPIED, REPRODUCED 
+# OR TRANSLATED IN ANY FORM OR BY ANY MEANS, OR STORED IN A RETRIEVAL 
+# SYSTEM OR TRANSMITTED ELECTRONICALLYOR OTHERWISE, WITHOUT THE PRIOR 
+# WRITTEN CONSENT OF CSG INTERNATIONAL.
+# ===========================================================================
+#
+# NOTES:
+#   1. Keep all column and view names under 32 characters long
+#   2. Column details are ignored for views by must be supplied for
+#      documentation
+#
+# REVISION HISTORY:
+#   $Log: H3ATT_DWH_NORMALISED_EVENT_A_V.view,v $
+#   Revision 1.4  2020/02/13 19:28:19  t_nagavaha
+#   Ticket CF-8467: View has been modified based on trigger
+#
+#   Revision 1.3  2020/02/12 13:14:26  t_nagavaha
+#   Ticket CF-8467: Querxy re-written to use filename
+#
+#
+#---------------------------------------------------------------------------
+
+A.3 H3ATT_DWH_NORMALISED_EVENT_A_V
+
+Uses
+    Data warehouse view that emulates the content of table NORMALISED_EVENT_A from Hutchison into the format / structure as existing in ARGOS.
+    Revoke bill run to unit test, gets populated only on delete action 
+
+Column Details
+
+    ENTRY_DATE                 NOT NULL DATE           
+    USERNAME                   NOT NULL VARCHAR2(30)   
+    OPERATION_CODE             NOT NULL NUMBER(1)      
+    NORMALISED_EVENT_ID                 NUMBER(15)     
+    LAST_MODIFIED                       DATE           
+    NORMALISED_EVENT_TYPE_ID            NUMBER(8)      
+    PARENT_NORMALISED_EVENT_ID          NUMBER(15)     
+    NORMALISED_EVENT_FILE_ID            NUMBER(15)     
+    FILE_RECORD_NR                      NUMBER(10)     
+    EXTERNAL_FILE_RECORD_NR             NUMBER(10)     
+    ORIGINAL_FILE_ID                    NUMBER(15)     
+    ORIGINAL_FILE_RECORD_NR             NUMBER(10)     
+    REPROCESSED_COUNT                   NUMBER(10)     
+    A_PARTY_ID                          VARCHAR2(64)   
+    A_PARTY_NETWORK_ID                  VARCHAR2(64)   
+    A_PARTY_NAME                        VARCHAR2(64)   
+    A_PARTY_TON_CODE                    NUMBER(8)      
+    A_PARTY_CELL_ID                     VARCHAR2(20)   
+    A_PARTY_CARRIER_CODE                NUMBER(8)      
+    A_PARTY_LOCATION_CODE               NUMBER(8)      
+    A_PARTY_ROUTE                       VARCHAR2(80)   
+    B_PARTY_ID                          VARCHAR2(64)   
+    B_PARTY_NETWORK_ID                  VARCHAR2(64)   
+    B_PARTY_NAME                        VARCHAR2(64)   
+    B_PARTY_TON_CODE                    NUMBER(8)      
+    B_PARTY_CELL_ID                     VARCHAR2(20)   
+    B_PARTY_CARRIER_CODE                NUMBER(8)      
+    B_PARTY_LOCATION_CODE               NUMBER(8)      
+    B_PARTY_ROUTE                       VARCHAR2(80)   
+    C_PARTY_ID                          VARCHAR2(64)   
+    C_PARTY_NETWORK_ID                  VARCHAR2(64)   
+    C_PARTY_NAME                        VARCHAR2(64)   
+    C_PARTY_INTERNAL_ID                 NUMBER(15)     
+    C_PARTY_TON_CODE                    NUMBER(8)      
+    C_PARTY_CELL_ID                     VARCHAR2(20)   
+    C_PARTY_CARRIER_CODE                NUMBER(8)      
+    C_PARTY_LOCATION_CODE               NUMBER(8)      
+    C_PARTY_ROUTE                       VARCHAR2(80)   
+    FULL_PATH                           VARCHAR2(40)   
+    CASCADE_CARRIER_CODE                NUMBER(8)      
+    SWITCH_START_DATE                   DATE           
+    CHARGE_START_DATE                   DATE           
+    PERIOD_START_DATE                   DATE           
+    PERIOD_END_DATE                     DATE           
+    EVENT_SOURCE                        VARCHAR2(40)   
+    EVENT_CLASS_CODE                    NUMBER(2)      
+    BILL_RUN_ID                         NUMBER(15)     
+    ROOT_CUSTOMER_NODE_ID               NUMBER(15)     
+    EVENT_TYPE_CODE                     NUMBER(8)      
+    EVENT_SUB_TYPE_CODE                 NUMBER(8)      
+    DURATION                            NUMBER         
+    VOLUME                              NUMBER         
+    PULSES                              NUMBER(8)      
+    CHARGE                              NUMBER(22,6)   
+    CURRENCY_ID                         NUMBER(8)      
+    RATE_BAND                           VARCHAR2(40)   
+    GENERAL_1                           VARCHAR2(4000) 
+    GENERAL_2                           VARCHAR2(4000) 
+    GENERAL_3                           VARCHAR2(4000) 
+    GENERAL_4                           VARCHAR2(4000) 
+    GENERAL_5                           VARCHAR2(4000) 
+    GENERAL_6                           VARCHAR2(4000) 
+    GENERAL_7                           VARCHAR2(4000) 
+    GENERAL_8                           VARCHAR2(4000) 
+    GENERAL_9                           VARCHAR2(4000) 
+    GENERAL_10                          VARCHAR2(4000) 
+    GENERAL_11                          VARCHAR2(4000) 
+    GENERAL_12                          VARCHAR2(4000) 
+    GENERAL_13                          VARCHAR2(4000) 
+    GENERAL_14                          VARCHAR2(4000) 
+    GENERAL_15                          VARCHAR2(4000) 
+    GENERAL_16                          VARCHAR2(4000) 
+    GENERAL_17                          VARCHAR2(4000) 
+    GENERAL_18                          VARCHAR2(4000) 
+    GENERAL_19                          VARCHAR2(4000) 
+    GENERAL_20                          VARCHAR2(4000) 
+    DUMMY                               VARCHAR2(1)    
+    PARTITION_NR                        NUMBER(2)
+
+View Definition
+
+SELECT     
+    NEA.ENTRY_DATE,                     
+    NEA.USERNAME,                     
+    NEA.OPERATION_CODE,                 
+    NEA.NORMALISED_EVENT_ID,       
+    NEA.LAST_MODIFIED,             
+    DECODE(NEA.NORMALISED_EVENT_TYPE_ID,4100003,25000080,
+                                        NULL, 25000080, NORMALISED_EVENT_TYPE_ID) AS NORMALISED_EVENT_TYPE_ID,
+    NEA.PARENT_NORMALISED_EVENT_ID,
+    NEA.NORMALISED_EVENT_FILE_ID,  
+    NEA.FILE_RECORD_NR,            
+    NEA.EXTERNAL_FILE_RECORD_NR,   
+    NEA.ORIGINAL_FILE_ID,          
+    NEA.ORIGINAL_FILE_RECORD_NR,   
+    NEA.REPROCESSED_COUNT,         
+    NEA.A_PARTY_ID,                
+    NEA.A_PARTY_NETWORK_ID,       
+    NEA.A_PARTY_NAME,              
+    NEA.A_PARTY_TON_CODE,          
+    NEA.A_PARTY_CELL_ID,           
+    NEA.A_PARTY_CARRIER_CODE,      
+    NEA.A_PARTY_LOCATION_CODE,     
+    NEA.A_PARTY_ROUTE,             
+    NEA.B_PARTY_ID,                
+    NEA.B_PARTY_NETWORK_ID,        
+    NEA.B_PARTY_NAME,              
+    NEA.B_PARTY_TON_CODE,          
+    NEA.B_PARTY_CELL_ID,           
+    NEA.B_PARTY_CARRIER_CODE,     
+    NEA.B_PARTY_LOCATION_CODE,     
+    NEA.B_PARTY_ROUTE,             
+    NEA.C_PARTY_ID,               
+    NEA.C_PARTY_NETWORK_ID,        
+    NEA.C_PARTY_NAME,              
+    NEA.C_PARTY_INTERNAL_ID,       
+    NEA.C_PARTY_TON_CODE,          
+    NEA.C_PARTY_CELL_ID,           
+    NEA.C_PARTY_CARRIER_CODE,      
+    NEA.C_PARTY_LOCATION_CODE,     
+    NEA.C_PARTY_ROUTE,             
+    NEA.FULL_PATH,                 
+    NEA.CASCADE_CARRIER_CODE,      
+    NEA.SWITCH_START_DATE,         
+    NEA.CHARGE_START_DATE,         
+    NEA.PERIOD_START_DATE,        
+    NEA.PERIOD_END_DATE,           
+    NEA.EVENT_SOURCE,              
+    NEA.EVENT_CLASS_CODE,          
+    NEA.BILL_RUN_ID,               
+    NEA.ROOT_CUSTOMER_NODE_ID,     
+    NEA.EVENT_TYPE_CODE,           
+    NEA.EVENT_SUB_TYPE_CODE,       
+    NEA.DURATION,                  
+    NEA.VOLUME,                    
+    NEA.PULSES,                    
+    NEA.CHARGE,                    
+    NEA.CURRENCY_ID,               
+    NEA.RATE_BAND,                 
+    NEA.GENERAL_1,                 
+    NEA.GENERAL_2,                 
+    NEA.GENERAL_3,                 
+    NEA.GENERAL_4,                 
+    NEA.GENERAL_5,                 
+    NEA.GENERAL_6,                 
+    NEA.GENERAL_7,                 
+    NEA.GENERAL_8,                 
+    NEA.GENERAL_9,                 
+    NEA.GENERAL_10,                
+    NEA.GENERAL_11,                
+    NEA.GENERAL_12,                
+    NEA.GENERAL_13,                
+    NEA.GENERAL_14,                
+    NEA.GENERAL_15,                
+    NEA.GENERAL_16,                
+    NEA.GENERAL_17,                
+    NEA.GENERAL_18,                
+    NEA.GENERAL_19,                
+    NEA.GENERAL_20,                
+    NEA.DUMMY,                     
+    NEA.PARTITION_NR              
+FROM NORMALISED_EVENT_A NEA    
+WHERE (NEA.GENERAL_20 LIKE 'SV9_EWSD_BUS_%' OR NEA.GENERAL_20 LIKE 'SV9_IN_BUS_%')  
+
+
+#
+#   End (of H3ATT_DWH_NORMALISED_EVENT_A_V.view)
+#

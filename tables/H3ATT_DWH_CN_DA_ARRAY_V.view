@@ -1,0 +1,123 @@
+#---------------------------------------------------------------------------
+#
+#   File:       H3ATT_DWH_CN_DA_ARRAY_V.view
+#   Created:    20-Feb-2020 13:08:06
+#   Creator:    t_nagavaha  (Admin Harshendrakumar Nagavarapalya Nagaraj)
+#   $Revision:$
+#   $Id:$
+#
+# ===========================================================================
+# COPYRIGHT (C) 2020 CSG SYSTEMS INTERNATIONAL, INC. AND/OR ITS 
+# AFFILIATES ("CSG INTERNATIONAL"). ALL RIGHTS RESERVED. THE INFORMATION
+# CONTAINED WITHIN THIS DOCUMENT OR APPLICATION IS THE PROPERTY OF CSG 
+# INTERNATIONAL, WHICH IS CONFIDENTIAL AND PROTECTED BY INTERNATIONAL 
+# COPYRIGHT LAWS AND ANY UNAUTHORISED USE OF THIS DOCUMENT OR APPLICATION 
+# OR ITS CONTENTS MAY VIOLATE COPYRIGHT, TRADEMARK, AND OTHER LAWS. NO 
+# PART OF THIS DOCUMENT OR APPLICATION MAY BE PHOTOCOPIED, REPRODUCED 
+# OR TRANSLATED IN ANY FORM OR BY ANY MEANS, OR STORED IN A RETRIEVAL 
+# SYSTEM OR TRANSMITTED ELECTRONICALLYOR OTHERWISE, WITHOUT THE PRIOR 
+# WRITTEN CONSENT OF CSG INTERNATIONAL.
+# ===========================================================================
+#
+# NOTES:
+#   1. Keep all column and view names under 32 characters long
+#   2. Column details are ignored for views by must be supplied for
+#      documentation
+#
+# REVISION HISTORY:
+#   $Log:$
+#
+#---------------------------------------------------------------------------
+
+A.3 H3ATT_DWH_CN_DA_ARRAY_V
+
+Uses
+    DESCRIPTION GOES HERE
+
+Column Details
+
+    CUSTOMER_NODE_ID     NOT NULL NUMBER(10)    
+    DERIVED_ATTRIBUTE_ID NOT NULL NUMBER(8)     
+    EFFECTIVE_START_DATE NOT NULL DATE          
+    EFFECTIVE_END_DATE   NOT NULL DATE          
+    SEQNR                NOT NULL NUMBER(6)     
+    LAST_MODIFIED        NOT NULL DATE          
+    DESCRIPTION                   VARCHAR2(80)  
+    INDEX1_VALUE         NOT NULL VARCHAR2(255) 
+    INDEX2_VALUE                  VARCHAR2(255) 
+    INDEX3_VALUE                  VARCHAR2(255) 
+    INDEX4_VALUE                  VARCHAR2(255) 
+    INDEX5_VALUE                  VARCHAR2(255) 
+    INDEX6_VALUE                  VARCHAR2(255) 
+    INDEX7_VALUE                  VARCHAR2(255) 
+    INDEX8_VALUE                  VARCHAR2(255) 
+    INDEX9_VALUE                  VARCHAR2(255) 
+    INDEX10_VALUE                 VARCHAR2(255) 
+    RESULT1_VALUE                 VARCHAR2(255) 
+    RESULT2_VALUE                 VARCHAR2(255) 
+    RESULT3_VALUE                 VARCHAR2(255) 
+    RESULT4_VALUE                 VARCHAR2(255) 
+    RESULT5_VALUE                 VARCHAR2(255) 
+    RESULT6_VALUE                 VARCHAR2(255) 
+    RESULT7_VALUE                 VARCHAR2(255) 
+    RESULT8_VALUE                 VARCHAR2(255) 
+    RESULT9_VALUE                 VARCHAR2(255) 
+    RESULT10_VALUE                VARCHAR2(255) 
+    RESULT11_VALUE                VARCHAR2(255) 
+    RESULT12_VALUE                VARCHAR2(255) 
+    RESULT13_VALUE                VARCHAR2(255) 
+    RESULT14_VALUE                VARCHAR2(255) 
+    RESULT15_VALUE                VARCHAR2(255) 
+    RESULT16_VALUE                VARCHAR2(255) 
+    RESULT17_VALUE                VARCHAR2(255) 
+    RESULT18_VALUE                VARCHAR2(255) 
+    RESULT19_VALUE                VARCHAR2(255) 
+    RESULT20_VALUE                VARCHAR2(255)
+
+View Definition
+
+SELECT 
+    CNDA.CUSTOMER_NODE_ID     , 
+    CNDA.DERIVED_ATTRIBUTE_ID , 
+    CNDA.EFFECTIVE_START_DATE , 
+    CNDA.EFFECTIVE_END_DATE   , 
+    CNDA.SEQNR                , 
+    CNDA.LAST_MODIFIED        , 
+    CNDA.DESCRIPTION          , 
+    CNDA.INDEX1_VALUE         , 
+    CNDA.INDEX2_VALUE         , 
+    CNDA.INDEX3_VALUE         , 
+    CNDA.INDEX4_VALUE         , 
+    CNDA.INDEX5_VALUE         , 
+    CNDA.INDEX6_VALUE         , 
+    CNDA.INDEX7_VALUE         , 
+    CNDA.INDEX8_VALUE         , 
+    CNDA.INDEX9_VALUE         , 
+    CNDA.INDEX10_VALUE        , 
+    CNDA.RESULT1_VALUE        , 
+    CNDA.RESULT2_VALUE        , 
+    CNDA.RESULT3_VALUE        , 
+    CNDA.RESULT4_VALUE        , 
+    CNDA.RESULT5_VALUE        , 
+    CNDA.RESULT6_VALUE        , 
+    CNDA.RESULT7_VALUE        , 
+    CNDA.RESULT8_VALUE        , 
+    CNDA.RESULT9_VALUE        , 
+    CNDA.RESULT10_VALUE       , 
+    CNDA.RESULT11_VALUE       , 
+    CNDA.RESULT12_VALUE       , 
+    CNDA.RESULT13_VALUE       , 
+    CNDA.RESULT14_VALUE       , 
+    CNDA.RESULT15_VALUE       , 
+    CNDA.RESULT16_VALUE       , 
+    CNDA.RESULT17_VALUE       , 
+    CNDA.RESULT18_VALUE       , 
+    CNDA.RESULT19_VALUE       , 
+    CNDA.RESULT20_VALUE
+FROM CUSTOMER_NODE_DA_ARRAY CNDA
+JOIN ACCOUNT ACC ON CNDA.CUSTOMER_NODE_ID=ACC.CUSTOMER_NODE_ID AND GENERAL_2='CLARIFY'
+WHERE 1=1
+
+#
+#   End (of H3ATT_DWH_CN_DA_ARRAY_V.view)
+#

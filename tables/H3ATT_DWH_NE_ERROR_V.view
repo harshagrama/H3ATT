@@ -1,0 +1,246 @@
+#---------------------------------------------------------------------------
+#
+#   File:       H3ATT_DWH_NE_ERROR_V.view
+#   Created:    06-Feb-2020 15:39:36
+#   Creator:    t_nagavaha  (Admin Harshendrakumar Nagavarapalya Nagaraj)
+#   $Revision: 1.7 $
+#   $Id: H3ATT_DWH_NE_ERROR_V.view,v 1.7 2020/03/10 12:25:37 t_nagavaha Exp $
+#
+# ===========================================================================
+# COPYRIGHT (C) 2020 CSG SYSTEMS INTERNATIONAL, INC. AND/OR ITS 
+# AFFILIATES ("CSG INTERNATIONAL"). ALL RIGHTS RESERVED. THE INFORMATION
+# CONTAINED WITHIN THIS DOCUMENT OR APPLICATION IS THE PROPERTY OF CSG 
+# INTERNATIONAL, WHICH IS CONFIDENTIAL AND PROTECTED BY INTERNATIONAL 
+# COPYRIGHT LAWS AND ANY UNAUTHORISED USE OF THIS DOCUMENT OR APPLICATION 
+# OR ITS CONTENTS MAY VIOLATE COPYRIGHT, TRADEMARK, AND OTHER LAWS. NO 
+# PART OF THIS DOCUMENT OR APPLICATION MAY BE PHOTOCOPIED, REPRODUCED 
+# OR TRANSLATED IN ANY FORM OR BY ANY MEANS, OR STORED IN A RETRIEVAL 
+# SYSTEM OR TRANSMITTED ELECTRONICALLYOR OTHERWISE, WITHOUT THE PRIOR 
+# WRITTEN CONSENT OF CSG INTERNATIONAL.
+# ===========================================================================
+#
+# NOTES:
+#   1. Keep all column and view names under 32 characters long
+#   2. Column details are ignored for views by must be supplied for
+#      documentation
+#
+# REVISION HISTORY:
+#   $Log: H3ATT_DWH_NE_ERROR_V.view,v $
+#   Revision 1.7  2020/03/10 12:25:37  t_nagavaha
+#   Ticket CF-9088: Fixed EVENT_TYPE_CODE, After talking with DWH
+#
+#   Revision 1.6  2020/03/10 09:12:03  t_nagavaha
+#   Ticket CF-9088: Using SH table instead of DWH view,to improve performance of the query
+#
+#   Revision 1.5  2020/03/09 10:29:42  t_nagavaha
+#   Ticket CF-9088: GENERAL_4 & EVENT_TYPE_CODE has been fixed
+#
+#   Revision 1.4  2020/02/18 12:54:12  t_nagavaha
+#   Ticket CF-8467: Removed duplicate column NORMALISED_EVENT_TYPE_ID
+#
+#   Revision 1.3  2020/02/14 09:08:26  t_nagavaha
+#   Ticket CF-8467: Updated General_5 and General_6
+#
+#   Revision 1.2  2020/02/12 13:19:49  t_nagavaha
+#   Ticket CF-8467: Removed comment line
+#
+#   Revision 1.1  2020/02/12 13:12:44  t_nagavaha
+#   Ticket CF-8467: Initial Revision
+#
+#
+#---------------------------------------------------------------------------
+
+A.3 H3ATT_DWH_NE_ERROR_V
+
+Uses
+    Data warehouse view that emulates the content of table NORMALISED_EVENT_ERROR from Hutchison into the format / structure as existing in ARGOS.
+
+Column Details
+
+    A_PARTY_CARRIER_CODE            NUMBER              
+    A_PARTY_CELL_ID                 VARCHAR2(20 CHAR)   
+    A_PARTY_ID                      VARCHAR2(64 CHAR)   
+    A_PARTY_LOCATION_CODE           NUMBER              
+    A_PARTY_NAME                    VARCHAR2(64 CHAR)   
+    A_PARTY_NETWORK_ID              VARCHAR2(64 CHAR)   
+    A_PARTY_ROUTE                   VARCHAR2(80 CHAR)   
+    A_PARTY_TON_CODE                NUMBER              
+    BILL_RUN_ID                     NUMBER              
+    B_PARTY_CARRIER_CODE            NUMBER              
+    B_PARTY_CELL_ID                 VARCHAR2(20 CHAR)   
+    B_PARTY_ID                      VARCHAR2(64 CHAR)   
+    B_PARTY_LOCATION_CODE           NUMBER              
+    B_PARTY_NAME                    VARCHAR2(64 CHAR)   
+    B_PARTY_NETWORK_ID              VARCHAR2(64 CHAR)   
+    B_PARTY_ROUTE                   VARCHAR2(80 CHAR)   
+    B_PARTY_TON_CODE                NUMBER              
+    CASCADE_CARRIER_CODE            NUMBER              
+    CHARGE                          NUMBER              
+    CHARGE_START_DATE               DATE                
+    CURRENCY_ID                     NUMBER              
+    C_PARTY_CARRIER_CODE            NUMBER              
+    C_PARTY_CELL_ID                 VARCHAR2(20 CHAR)   
+    C_PARTY_ID                      VARCHAR2(64 CHAR)   
+    C_PARTY_INTERNAL_ID             NUMBER              
+    C_PARTY_LOCATION_CODE           NUMBER              
+    C_PARTY_NAME                    VARCHAR2(64 CHAR)   
+    C_PARTY_NETWORK_ID              VARCHAR2(64 CHAR)   
+    C_PARTY_ROUTE                   VARCHAR2(80 CHAR)   
+    C_PARTY_TON_CODE                NUMBER              
+    DURATION                        NUMBER              
+    ERROR_CLASS_CODE                NUMBER              
+    ERROR_MESSAGE                   VARCHAR2(4000 CHAR) 
+    ERROR_MESSAGE_ID                NUMBER              
+    EVENT_CLASS_CODE                NUMBER              
+    EVENT_SOURCE                    VARCHAR2(40 CHAR)   
+    EVENT_SUB_TYPE_CODE             NUMBER              
+    EVENT_TYPE_CODE                 NUMBER              
+    EXTERNAL_FILE_RECORD_NR         NUMBER              
+    FILE_RECORD_NR                  NUMBER              
+    FULL_PATH                       VARCHAR2(40 CHAR)   
+    GENERAL_1                       VARCHAR2(4000 CHAR) 
+    GENERAL_10                      VARCHAR2(4000 CHAR) 
+    GENERAL_11                      VARCHAR2(4000 CHAR) 
+    GENERAL_12                      VARCHAR2(4000 CHAR) 
+    GENERAL_13                      VARCHAR2(4000 CHAR) 
+    GENERAL_14                      VARCHAR2(4000 CHAR) 
+    GENERAL_15                      VARCHAR2(4000 CHAR) 
+    GENERAL_16                      VARCHAR2(4000 CHAR) 
+    GENERAL_17                      VARCHAR2(4000 CHAR) 
+    GENERAL_18                      VARCHAR2(4000 CHAR) 
+    GENERAL_19                      VARCHAR2(4000 CHAR) 
+    GENERAL_2                       VARCHAR2(4000 CHAR) 
+    GENERAL_20                      VARCHAR2(4000 CHAR) 
+    GENERAL_3                       VARCHAR2(4000 CHAR) 
+    GENERAL_4                       VARCHAR2(4000 CHAR) 
+    GENERAL_5                       VARCHAR2(4000 CHAR) 
+    GENERAL_6                       VARCHAR2(4000 CHAR) 
+    GENERAL_7                       VARCHAR2(4000 CHAR) 
+    GENERAL_8                       VARCHAR2(4000 CHAR) 
+    GENERAL_9                       VARCHAR2(4000 CHAR) 
+    LAST_MODIFIED                   DATE                
+    NORMALISED_EVENT_FILE_ID        NUMBER              
+    NORMALISED_EVENT_ID             NUMBER              
+    NORMALISED_EVENT_TYPE_ID        NUMBER              
+    ORIGINAL_FILE_ID                NUMBER              
+    ORIGINAL_FILE_RECORD_NR         NUMBER              
+    PARENT_NORMALISED_EVENT_ID      NUMBER              
+    PARTITION_NR                    NUMBER              
+    PERIOD_END_DATE                 DATE                
+    PERIOD_START_DATE               DATE                
+    PULSES                          NUMBER              
+    RATE_BAND                       VARCHAR2(40 CHAR)   
+    REPROCESSED_COUNT               NUMBER              
+    REPROCESSED_FILE_ID             NUMBER              
+    REPROCESSED_FILE_RECORD_NR      NUMBER              
+    ROOT_CUSTOMER_NODE_ID           NUMBER              
+    SWITCH_START_DATE               DATE                
+    VOLUME                          NUMBER              
+            
+
+View Definition
+
+SELECT 
+      NEE.NORMALISED_EVENT_ID,
+      NEE.LAST_MODIFIED,
+      DECODE(NEE.NORMALISED_EVENT_TYPE_ID,4100003,25000080,NORMALISED_EVENT_TYPE_ID) AS NORMALISED_EVENT_TYPE_ID,
+      NEE.NORMALISED_EVENT_FILE_ID,
+      NEE.FILE_RECORD_NR,
+      NEE.EXTERNAL_FILE_RECORD_NR,
+      NEE.ORIGINAL_FILE_ID,
+      NEE.ORIGINAL_FILE_RECORD_NR,
+      NEE.REPROCESSED_COUNT,
+      NEE.ERROR_MESSAGE_ID,
+      NEE.ERROR_MESSAGE,
+      NEE.ERROR_CLASS_CODE,
+      NEE.REPROCESSED_FILE_ID,
+      NEE.REPROCESSED_FILE_RECORD_NR,
+      NEE.A_PARTY_ID,
+      NEE.A_PARTY_NETWORK_ID,
+      NEE.A_PARTY_NAME,
+      NEE.A_PARTY_TON_CODE,
+      NEE.A_PARTY_CELL_ID,
+      NEE.A_PARTY_CARRIER_CODE,
+      NEE.A_PARTY_LOCATION_CODE,
+      NEE.A_PARTY_ROUTE,
+      NEE.B_PARTY_ID,
+      NEE.B_PARTY_NETWORK_ID,
+      NEE.B_PARTY_NAME,
+      NEE.B_PARTY_TON_CODE,
+      NEE.B_PARTY_CELL_ID,
+      NEE.B_PARTY_CARRIER_CODE,
+      NEE.B_PARTY_LOCATION_CODE,
+      NEE.B_PARTY_ROUTE,
+      NEE.C_PARTY_ID,
+      NEE.C_PARTY_NETWORK_ID,
+      NEE.C_PARTY_NAME,
+      NEE.C_PARTY_INTERNAL_ID,
+      NEE.C_PARTY_TON_CODE,
+      NEE.C_PARTY_CELL_ID,
+      NEE.C_PARTY_CARRIER_CODE,
+      NEE.C_PARTY_LOCATION_CODE,
+      NEE.C_PARTY_ROUTE,
+      NEE.FULL_PATH,
+      NEE.CASCADE_CARRIER_CODE,
+      NEE.SWITCH_START_DATE,
+      NEE.CHARGE_START_DATE,
+      NEE.PERIOD_START_DATE,
+      NEE.PERIOD_END_DATE,
+      NEE.EVENT_SOURCE,
+      NEE.EVENT_CLASS_CODE,
+      NEE.BILL_RUN_ID,
+      NEE.ROOT_CUSTOMER_NODE_ID,
+      (SELECT RESULT1_VALUE 
+        FROM DERIVED_ATTRIBUTE_ARRAY
+       WHERE DERIVED_ATTRIBUTE_ID=31001074
+        AND INDEX1_VALUE='REFERENCE_TYPE'
+        AND INDEX2_VALUE='EVENT_TYPE_CODE'
+        AND INDEX3_VALUE= NEE.EVENT_TYPE_CODE) as EVENT_TYPE_CODE,
+      (SELECT RESULT1_VALUE 
+        FROM DERIVED_ATTRIBUTE_ARRAY
+       WHERE DERIVED_ATTRIBUTE_ID=31001074
+        AND INDEX1_VALUE='REFERENCE_TYPE'
+        AND INDEX2_VALUE='EVENT_SUB_TYPE_CODE'
+        AND INDEX3_VALUE= NEE.EVENT_SUB_TYPE_CODE) as EVENT_SUB_TYPE_CODE, 
+      NEE.DURATION,
+      NEE.VOLUME,
+      NEE.PULSES,
+      NEE.CHARGE,
+      NEE.CURRENCY_ID,
+      NEE.RATE_BAND,
+      NEE.GENERAL_1,
+      NEE.GENERAL_2,
+      NEE.GENERAL_3,
+      (   SELECT 'dTT_RAT_RP_' || ABBREVIATION  
+      FROM REFERENCE_CODE
+      WHERE REFERENCE_TYPE_ID = 31001285
+        AND REFERENCE_CODE= SH.INDUSTRY_GENERAL_8) as GENERAL_4,
+      NEE.GENERAL_20 as GENERAL_5,
+      NEE.C_PARTY_ID as GENERAL_6,
+      NEE.GENERAL_7,
+      NEE.GENERAL_8,
+      NEE.GENERAL_9,
+      NEE.GENERAL_10,
+      NEE.GENERAL_11,
+      NEE.GENERAL_12,
+      NEE.GENERAL_13,
+      NEE.GENERAL_14,
+      NEE.GENERAL_15,
+      NEE.GENERAL_16,
+      NEE.GENERAL_17,
+      NEE.GENERAL_18,
+      NEE.GENERAL_19,
+      NEE.GENERAL_20,
+      NEE.PARTITION_NR
+FROM NORMALISED_EVENT_ERROR NEE
+JOIN NORMALISED_EVENT_FILE NEF ON NEE.NORMALISED_EVENT_FILE_ID=NEF.NORMALISED_EVENT_FILE_ID 
+        AND (NEF.FILENAME LIKE 'SV9_EWSD_BUS_%' OR NEF.FILENAME LIKE 'SV9_IN_BUS_%') 
+LEFT OUTER JOIN SERVICE_HISTORY SH ON NEE.A_PARTY_NAME = SH.SERVICE_NAME 
+        AND NEE.CHARGE_START_DATE BETWEEN SH.EFFECTIVE_START_DATE AND SH.EFFECTIVE_END_DATE
+WHERE 1=1  
+
+
+
+#
+#   End (of H3ATT_DWH_NE_ERROR_V.view)
+#

@@ -1,0 +1,114 @@
+#---------------------------------------------------------------------------
+#
+#   File:       H3ATT_DWH_EBILL_V.view
+#   Created:    23-Mar-2020 15:26:23
+#   Creator:    t_nagavaha  (Admin Harshendrakumar Nagavarapalya Nagaraj)
+#   $Revision: 1.1 $
+#   $Id: H3ATT_DWH_EBILL_V.view,v 1.1 2020/03/23 15:02:45 t_nagavaha Exp $
+#
+# ===========================================================================
+# COPYRIGHT (C) 2020 CSG SYSTEMS INTERNATIONAL, INC. AND/OR ITS 
+# AFFILIATES ("CSG INTERNATIONAL"). ALL RIGHTS RESERVED. THE INFORMATION
+# CONTAINED WITHIN THIS DOCUMENT OR APPLICATION IS THE PROPERTY OF CSG 
+# INTERNATIONAL, WHICH IS CONFIDENTIAL AND PROTECTED BY INTERNATIONAL 
+# COPYRIGHT LAWS AND ANY UNAUTHORISED USE OF THIS DOCUMENT OR APPLICATION 
+# OR ITS CONTENTS MAY VIOLATE COPYRIGHT, TRADEMARK, AND OTHER LAWS. NO 
+# PART OF THIS DOCUMENT OR APPLICATION MAY BE PHOTOCOPIED, REPRODUCED 
+# OR TRANSLATED IN ANY FORM OR BY ANY MEANS, OR STORED IN A RETRIEVAL 
+# SYSTEM OR TRANSMITTED ELECTRONICALLYOR OTHERWISE, WITHOUT THE PRIOR 
+# WRITTEN CONSENT OF CSG INTERNATIONAL.
+# ===========================================================================
+#
+# NOTES:
+#   1. Keep all column and view names under 32 characters long
+#   2. Column details are ignored for views by must be supplied for
+#      documentation
+#
+# REVISION HISTORY:
+#   $Log: H3ATT_DWH_EBILL_V.view,v $
+#   Revision 1.1  2020/03/23 15:02:45  t_nagavaha
+#   Ticket CF-9210: Initial Revision
+#
+#
+#---------------------------------------------------------------------------
+
+A.3 H3ATT_DWH_EBILL_V
+
+Uses
+    Data warehouse view that emulates EBILL from Hutchison into the format / structure as existing in ARGOS.
+
+Column Details
+
+    ACCOUNT_NAME         VARCHAR(255)        NOT NULL
+        
+    DISPLAY_TABLE_NAME   VARCHAR(255)        NOT NULL
+        
+    DELIVERY_METHOD      VARCHAR(255)        NOT NULL
+        
+    DELIVERY_LIST        VARCHAR(255)        NOT NULL
+
+    NOTIFICATION_LIST    VARCHAR(255)        NOT NULL
+        
+    EFFECTIVE_START_DATE DATE                NOT NULL
+        
+View Definition
+
+SELECT 
+  SUBSTR (ac.account_name,4) AS ACCOUNT_NAME ,
+  'EBILL Details'                 AS DISPLAY_TABLE_NAME ,
+  dem.result1_value               AS DELIVERY_METHOD ,
+  del.result1_value               AS DELIVERY_LIST ,
+  nl.result1_value                AS NOTIFICATION_LIST ,
+  ef.result1_value                AS EDI_FORMAT ,
+  (SELECT MAX(effective_start_date)
+  FROM customer_node_da_array
+  WHERE customer_node_id  =ac.customer_node_id
+  AND derived_attribute_id=31001174
+  ) AS EFFECTIVE_START_DATE
+FROM account ac
+LEFT JOIN
+  (SELECT customer_node_id,
+    result1_value
+  FROM customer_node_da_array
+  WHERE derived_attribute_id=31001174
+  AND index1_value          =20
+  AND sysdate BETWEEN effective_start_date AND effective_end_date
+  ) dem
+ON ac.customer_node_id=dem.customer_node_id
+LEFT JOIN
+  (SELECT customer_node_id,
+    result1_value
+  FROM customer_node_da_array
+  WHERE derived_attribute_id=31001174
+  AND index1_value          =19
+  AND sysdate BETWEEN effective_start_date AND effective_end_date
+  ) del
+ON ac.customer_node_id=del.customer_node_id
+LEFT JOIN
+  (SELECT customer_node_id,
+    result1_value
+  FROM customer_node_da_array
+  WHERE derived_attribute_id=31001174
+  AND index1_value          =22
+  AND sysdate BETWEEN effective_start_date AND effective_end_date
+  ) nl
+ON ac.customer_node_id=nl.customer_node_id
+LEFT JOIN
+  (SELECT customer_node_id,
+    result1_value
+  FROM customer_node_da_array
+  WHERE derived_attribute_id=31001174
+  AND index1_value          =21
+  AND sysdate BETWEEN effective_start_date AND effective_end_date
+  ) ef
+ON ac.customer_node_id=ef.customer_node_id
+WHERE 1               =1
+AND ac.general_2      ='CLARIFY'
+AND (dem.result1_value IS NOT NULL OR del.result1_value IS NOT NULL 
+     OR nl.result1_value IS NOT NULL OR ef.result1_value IS NOT NULL) 
+ORDER BY ac.account_name
+
+
+#
+#   End (of H3ATT_DWH_EBILL_V.view)
+#

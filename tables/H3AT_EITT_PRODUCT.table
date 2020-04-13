@@ -1,0 +1,169 @@
+#---------------------------------------------------------------------------
+#
+#   File:       H3AT_EITT_PRODUCT.table
+#   Created:    14-June-2019 10:37:58
+#   Creator:    t_keirench  (Admin Christophe Keirens)
+#   $Revision: 1.2 $
+#   $Id: H3AT_EITT_PRODUCT.table,v 1.2 2019/08/25 22:12:04 t_keirench Exp $
+#
+# ===========================================================================
+# COPYRIGHT (C) 2019 CSG SYSTEMS INTERNATIONAL, INC. AND/OR ITS 
+# AFFILIATES ("CSG INTERNATIONAL"). ALL RIGHTS RESERVED. THE INFORMATION
+# CONTAINED WITHIN THIS DOCUMENT OR APPLICATION IS THE PROPERTY OF CSG 
+# INTERNATIONAL, WHICH IS CONFIDENTIAL AND PROTECTED BY INTERNATIONAL 
+# COPYRIGHT LAWS AND ANY UNAUTHORISED USE OF THIS DOCUMENT OR APPLICATION 
+# OR ITS CONTENTS MAY VIOLATE COPYRIGHT, TRADEMARK, AND OTHER LAWS. NO 
+# PART OF THIS DOCUMENT OR APPLICATION MAY BE PHOTOCOPIED, REPRODUCED 
+# OR TRANSLATED IN ANY FORM OR BY ANY MEANS, OR STORED IN A RETRIEVAL 
+# SYSTEM OR TRANSMITTED ELECTRONICALLYOR OTHERWISE, WITHOUT THE PRIOR 
+# WRITTEN CONSENT OF CSG INTERNATIONAL.
+# ===========================================================================
+#
+# NOTES:
+#   1. Keep table name under 26 characters long to allow for archive
+#      Audit table names appending _A_R.
+#   2. Keep all column, view, index, constraint names under 30
+#      characters long
+#   3. Foreign Keys must always be supported by an index.
+#   4. Choose a class that represents the growth characteristic of the table
+#      eg. If the table grows with the number of tasks in the system, use Task
+#      If the table is transient, use Temp
+#      If the table is not dependent on any other, use Misc
+#   5. Choose a size that represents the expected table size within the class
+#
+# REVISION HISTORY:
+#   $Log: H3AT_EITT_PRODUCT.table,v $
+#   Revision 1.2  2019/08/25 22:12:04  t_keirench
+#   Ticket CF-6596: Updates to support Mokking
+#
+#   Revision 1.1  2019/06/17 21:31:50  ghazizra
+#   Ticket CF-6855: CLY Mocktable
+#
+#
+#---------------------------------------------------------------------------
+
+A.3 H3AT_EITT_PRODUCT
+
+Uses
+    Table to support the product creation and update criteria. 
+
+Column Details
+
+    CUSTOMER_NODE_REF         VARCHAR(40)        NOT NULL
+        Billing site unique identifier. 
+    
+    START_DATE         DATE                NOT NULL
+        customer creation date
+    
+    PRODUCT_REF         VARCHAR(40)        NOT NULL
+        The unique CRM ID that shall be used to perform maintenance on this product/service.
+    
+    CRM_PRODUCT_PARENT         VARCHAR(40)
+        Parent Product unique identifier. 
+    
+    CRM_PRODUCT_TOP         VARCHAR(40)
+        Root Product unique identifier. 
+    
+    PRODUCT_CLASS         VARCHAR(255)        NOT NULL
+        The product class. Used for sorting on the invoice. 
+
+    PRODUCT_GROUP         VARCHAR(255)        NOT NULL
+        Product group could be used when discounting all services of a certain class. 
+    
+    PRODUCT_REF_CODE         VARCHAR(255)     
+        Product reference code. Used for sorting on the invoice.
+
+    SERVICE_INFO         VARCHAR(255)        
+        Information about the services of the product. 
+    
+    PRODUCT_NAME         VARCHAR(255)        NOT NULL
+        The name of the service that is to be the display name on the invoice. 
+        
+    NOTICE_ON_INVOICE         VARCHAR(255)
+        The additional invoice text. 
+        
+    TECHNICAL_SITE         VARCHAR(255)        
+        The technical site. Used for grouping on the invoice
+    
+    EDI_ID         VARCHAR(255)        
+        This is an optional reference from the external system to allow charges to be linked downstream. 
+        This value is provided in the xml invoice under tag service_name if it is provided. 
+        When it is not provided the algorithm used to determine what to provide can be found in DD_InvoiceGeneration.
+    
+    SERVICE_DISPLAY_NAME         VARCHAR(255)        
+        This value will replace the SERVICE_NAME value below in the xml invoice for tag guide_number. 
+        If this is not provided, the SERVICE_NAME parameter is used. This field will definitely be 
+        needed for data services to replace the internal guide number with a user friendly reference like their login name.  
+    
+    DISPLAY_ALWAYS         VARCHAR(255)        
+        Flag used for overriding the invoice display logic. Can be Yes or No
+        
+    SERVICE_NAME         VARCHAR(255)        
+        Product unique identifier.
+    
+    RATE_PLAN         VARCHAR(255)        
+        The rate plan that is to be applied to the usage. 
+    
+    ONNET_SERVICE         NUMBER(1)
+        Boolean flag
+
+    VPN_SERVICE         NUMBER(1)
+        Boolean flag
+
+    CO_CODE         VARCHAR(255)        
+        Cost center code
+        
+    FI_CODE         VARCHAR(255)        
+        Finance code
+
+    SERVICE_CLASS         VARCHAR(255)        
+        This is the guide point class. 
+    
+    RATE_CLASSIFICATION         VARCHAR(255)        
+        The rate classification for the service. Used by the Inter Company Tariff.
+
+    PRODUCT_STATUS	VARCHAR(255) NOT NULL
+	Active or Terminated
+
+    CANCEL_DATE		DATE
+	The date the product should be canceled in Singleview from a billing perspective.
+    
+    CLFY_SP_OBJID       VARCHAR(40)
+        A Clarify ID. not used yet. 
+
+    CHANGE_DATE         DATE
+        Date a change is made to support updates. 
+
+    BIL_PARM_EFF_DATE   DATE
+        Date this record is effective from for billing. 
+
+    RATE_PARM_EFF_DATE  DATE
+        Date this record is effective from for rating perspective
+
+
+Key and Index Details
+
+Primary Key:    P_H3AT_CLY_PROD_SERV_REF
+                (PRODUCT_REF)
+
+Index:          I_H3AT_CLY_PROD_SERVICE_START
+                (START_DATE)
+
+Index:          I_H3AT_CLY_PROD_SERVICE_REF
+                (CUSTOMER_NODE_REF)
+
+
+
+
+Classification
+
+Type:           Normal
+
+Class:          Misc
+
+Sizing:         Medium
+
+
+#
+#   End (of H3AT_EITT_PRODUCT.table)
+#

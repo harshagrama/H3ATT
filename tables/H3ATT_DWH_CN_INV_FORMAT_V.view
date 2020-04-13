@@ -1,0 +1,90 @@
+#---------------------------------------------------------------------------
+#
+#   File:       H3ATT_DWH_CN_INV_FORMAT_V.view
+#   Created:    26-Feb-2020 15:28:21
+#   Creator:    t_nagavaha  (Admin Harshendrakumar Nagavarapalya Nagaraj)
+#   $Revision:$
+#   $Id:$
+#
+# ===========================================================================
+# COPYRIGHT (C) 2020 CSG SYSTEMS INTERNATIONAL, INC. AND/OR ITS 
+# AFFILIATES ("CSG INTERNATIONAL"). ALL RIGHTS RESERVED. THE INFORMATION
+# CONTAINED WITHIN THIS DOCUMENT OR APPLICATION IS THE PROPERTY OF CSG 
+# INTERNATIONAL, WHICH IS CONFIDENTIAL AND PROTECTED BY INTERNATIONAL 
+# COPYRIGHT LAWS AND ANY UNAUTHORISED USE OF THIS DOCUMENT OR APPLICATION 
+# OR ITS CONTENTS MAY VIOLATE COPYRIGHT, TRADEMARK, AND OTHER LAWS. NO 
+# PART OF THIS DOCUMENT OR APPLICATION MAY BE PHOTOCOPIED, REPRODUCED 
+# OR TRANSLATED IN ANY FORM OR BY ANY MEANS, OR STORED IN A RETRIEVAL 
+# SYSTEM OR TRANSMITTED ELECTRONICALLYOR OTHERWISE, WITHOUT THE PRIOR 
+# WRITTEN CONSENT OF CSG INTERNATIONAL.
+# ===========================================================================
+#
+# NOTES:
+#   1. Keep all column and view names under 32 characters long
+#   2. Column details are ignored for views by must be supplied for
+#      documentation
+#
+# REVISION HISTORY:
+#   $Log:$
+#
+#---------------------------------------------------------------------------
+
+A.3 H3ATT_DWH_CN_INV_FORMAT_V
+
+Uses
+    Data warehouse view that emulates the content from Hutchison into the format / structure as existing in ARGOS.
+
+Column Details
+
+    CUSTOMER_NODE_ID     NOT NULL NUMBER(15)    
+    EFFECTIVE_START_DATE NOT NULL DATE          
+    EFFECTIVE_END_DATE   NOT NULL DATE          
+    SEQNR                NOT NULL NUMBER(3)     
+    LAST_MODIFIED        NOT NULL DATE          
+    ACCOUNT_ID           NOT NULL NUMBER(15)    
+    INVOICE_FORMAT_ID    NOT NULL NUMBER(8)     
+    PERSON_ID            NOT NULL NUMBER(15)    
+    ADDRESS_CHOICE_CODE  NOT NULL NUMBER(2)     
+    ADDRESS_ID           NOT NULL NUMBER(15)    
+    GENERAL_1                     VARCHAR2(255) 
+    GENERAL_2                     VARCHAR2(255) 
+    GENERAL_3                     VARCHAR2(255) 
+    GENERAL_4                     VARCHAR2(255) 
+    GENERAL_5                     VARCHAR2(255) 
+    GENERAL_6                     VARCHAR2(255) 
+    GENERAL_7                     VARCHAR2(255) 
+    GENERAL_8                     VARCHAR2(255) 
+    GENERAL_9                     VARCHAR2(255) 
+    GENERAL_10                    VARCHAR2(255) 
+
+
+View Definition
+
+SELECT 
+    CNIF.CUSTOMER_NODE_ID    ,
+    CNIF.EFFECTIVE_START_DATE,
+    CNIF.EFFECTIVE_END_DATE  ,
+    CNIF.SEQNR               ,
+    CNIF.LAST_MODIFIED       ,
+    CNIF.ACCOUNT_ID          ,
+    CNIF.INVOICE_FORMAT_ID   ,
+    CNIF.PERSON_ID           ,
+    CNIF.ADDRESS_CHOICE_CODE ,
+    CNIF.ADDRESS_ID          ,
+    CNIF.GENERAL_1           ,
+    CNIF.GENERAL_1  as GENERAL_2,
+    CNIF.GENERAL_6  as GENERAL_3,
+    CNIF.GENERAL_8  as GENERAL_4,
+    CNIF.GENERAL_9  as GENERAL_5,
+    CNIF.GENERAL_10 as GENERAL_6,
+    CNIF.GENERAL_7           ,
+    CNIF.GENERAL_8           ,
+    CNIF.GENERAL_9           ,
+    CNIF.GENERAL_10
+FROM CUSTOMER_NODE_INV_FORMAT CNIF
+JOIN ACCOUNT ACC ON CNIF.CUSTOMER_NODE_ID=ACC.CUSTOMER_NODE_ID AND ACC.GENERAL_2 = 'CLARIFY'
+WHERE 1=1 
+
+#
+#   End (of H3ATT_DWH_CN_INV_FORMAT_V.view)
+#

@@ -1,0 +1,136 @@
+#---------------------------------------------------------------------------
+#
+#   File:       H3ATT_DWH_CN_TYPE_V.view
+#   Created:    18-Feb-2020 15:46:01
+#   Creator:    t_nagavaha  (Admin Harshendrakumar Nagavarapalya Nagaraj)
+#   $Revision: 1.1 $
+#   $Id: H3ATT_DWH_CN_TYPE_V.view,v 1.1 2020/02/26 07:46:33 t_nagavaha Exp $
+#
+# ===========================================================================
+# COPYRIGHT (C) 2020 CSG SYSTEMS INTERNATIONAL, INC. AND/OR ITS 
+# AFFILIATES ("CSG INTERNATIONAL"). ALL RIGHTS RESERVED. THE INFORMATION
+# CONTAINED WITHIN THIS DOCUMENT OR APPLICATION IS THE PROPERTY OF CSG 
+# INTERNATIONAL, WHICH IS CONFIDENTIAL AND PROTECTED BY INTERNATIONAL 
+# COPYRIGHT LAWS AND ANY UNAUTHORISED USE OF THIS DOCUMENT OR APPLICATION 
+# OR ITS CONTENTS MAY VIOLATE COPYRIGHT, TRADEMARK, AND OTHER LAWS. NO 
+# PART OF THIS DOCUMENT OR APPLICATION MAY BE PHOTOCOPIED, REPRODUCED 
+# OR TRANSLATED IN ANY FORM OR BY ANY MEANS, OR STORED IN A RETRIEVAL 
+# SYSTEM OR TRANSMITTED ELECTRONICALLYOR OTHERWISE, WITHOUT THE PRIOR 
+# WRITTEN CONSENT OF CSG INTERNATIONAL.
+# ===========================================================================
+#
+# NOTES:
+#   1. Keep all column and view names under 32 characters long
+#   2. Column details are ignored for views by must be supplied for
+#      documentation
+#
+# REVISION HISTORY:
+#   $Log: H3ATT_DWH_CN_TYPE_V.view,v $
+#   Revision 1.1  2020/02/26 07:46:33  t_nagavaha
+#   Ticket CF-8452: CUSTOMER_NODE_TYPE view for DWH
+#
+#
+#---------------------------------------------------------------------------
+
+A.3 H3ATT_DWH_CN_TYPE_V
+
+Uses
+    Data warehouse view that emulates the content from Hutchison into the format / structure as existing in ARGOS. 
+
+Column Details
+
+    CUSTOMER_NODE_TYPE_ID          NOT NULL NUMBER(8)     
+    LAST_MODIFIED                  NOT NULL DATE          
+    CUSTOMER_NODE_TYPE_NAME        NOT NULL VARCHAR2(30)  
+    CUSTOMER_NODE_TYPE_DISP_NAME   NOT NULL VARCHAR2(60)  
+    DESCRIPTION                    NOT NULL VARCHAR2(255) 
+    ICON_ID                        NOT NULL NUMBER(8)     
+    CUSTOMER_FORM_CODE             NOT NULL NUMBER(3)     
+    ATLANTA_GROUP_ID               NOT NULL NUMBER(8)     
+    ATLANTA_OPERATOR_ID            NOT NULL NUMBER(8)     
+    DEFAULT_WORK_FORCE_ID                   NUMBER(8)     
+    PRIME_ACCOUNT_TYPE_ID          NOT NULL NUMBER(8)     
+    PRIME_ACCOUNT_FORMAT_EXPR      NOT NULL VARCHAR2(255) 
+    REPORT_LEVEL_CODE                       NUMBER(4)     
+    INVOICE_FORMAT_ID                       NUMBER(8)     
+    HIERARCHY_SUPPORT_IND_CODE              NUMBER(1)     
+    CREDIT_RATING_CODE                      NUMBER(4)     
+    CREDIT_RATING_LIMIT                     NUMBER(19,3)  
+    CREDIT_LIMIT_CURRENCY_ID                NUMBER(8)     
+    GL_CODE_ID                              NUMBER(8)     
+    TAX_CLASS_CODE                          NUMBER(4)     
+    PAYMENT_METHOD_CODE                     NUMBER(4)     
+    PAYMENT_LOCATION_CODE                   NUMBER(8)     
+    PAYMENT_DUE_PERIOD             NOT NULL NUMBER(4)     
+    PAYMENT_DUE_UNITS_CODE         NOT NULL NUMBER(2)     
+    EARLY_PAYMENT_PERIOD           NOT NULL NUMBER(4)     
+    EARLY_PAYMENT_UNITS_CODE       NOT NULL NUMBER(2)     
+    SALES_CHANNEL_CODE                      NUMBER(8)     
+    INDUSTRY_CODE                           NUMBER(4)     
+    REGION_CODE                             NUMBER(4)     
+    MAX_SUPPRESS_BILL_CYCLE_COUNT           NUMBER(2)     
+    MAX_SUPPRESS_PERIOD                     NUMBER(2)     
+    MAX_SUPPRESS_PERIOD_UNITS_CODE          NUMBER(2)     
+    ADDRESS_FORMAT_ID              NOT NULL NUMBER(8)     
+    CUSTOMER_ENTITY_VALIDATION_ID           NUMBER(8)     
+    ACCOUNT_ENTITY_VALIDATION_ID            NUMBER(8)     
+    CONTACT_ENTITY_VALIDATION_ID            NUMBER(8)     
+    PERSON_ENTITY_VALIDATION_ID             NUMBER(8)     
+    SEARCH_ENTITY_VALIDATION_ID             NUMBER(8)     
+    CANCEL_ENTITY_VALIDATION_ID             NUMBER(8)     
+    VERSION_STR                             VARCHAR2(255) 
+    CATEGORIES                              VARCHAR2(255)
+
+View Definition
+
+SELECT
+    DECODE (CUSTOMER_NODE_TYPE_ID, 4100001,25000000,CUSTOMER_NODE_TYPE_ID) AS CUSTOMER_NODE_TYPE_ID,         
+    LAST_MODIFIED,                 
+    DECODE (CUSTOMER_NODE_TYPE_NAME,'Post-Paid','Billing Site',CUSTOMER_NODE_TYPE_NAME) AS CUSTOMER_NODE_TYPE_NAME,     
+    CUSTOMER_NODE_TYPE_DISP_NAME,
+    DESCRIPTION,                   
+    ICON_ID,                       
+    CUSTOMER_FORM_CODE,            
+    ATLANTA_GROUP_ID,              
+    ATLANTA_OPERATOR_ID,           
+    DEFAULT_WORK_FORCE_ID,         
+    PRIME_ACCOUNT_TYPE_ID,         
+    PRIME_ACCOUNT_FORMAT_EXPR,     
+    REPORT_LEVEL_CODE,             
+    INVOICE_FORMAT_ID,             
+    HIERARCHY_SUPPORT_IND_CODE,    
+    CREDIT_RATING_CODE,            
+    CREDIT_RATING_LIMIT,           
+    CREDIT_LIMIT_CURRENCY_ID,      
+    GL_CODE_ID,                    
+    TAX_CLASS_CODE,                
+    PAYMENT_METHOD_CODE,           
+    PAYMENT_LOCATION_CODE,         
+    PAYMENT_DUE_PERIOD,            
+    PAYMENT_DUE_UNITS_CODE,        
+    EARLY_PAYMENT_PERIOD,          
+    EARLY_PAYMENT_UNITS_CODE,      
+    SALES_CHANNEL_CODE,            
+    INDUSTRY_CODE,                 
+    REGION_CODE,                   
+    MAX_SUPPRESS_BILL_CYCLE_COUNT, 
+    MAX_SUPPRESS_PERIOD,           
+    MAX_SUPPRESS_PERIOD_UNITS_CODE,
+    ADDRESS_FORMAT_ID,             
+    CUSTOMER_ENTITY_VALIDATION_ID,
+    ACCOUNT_ENTITY_VALIDATION_ID,  
+    CONTACT_ENTITY_VALIDATION_ID,  
+    PERSON_ENTITY_VALIDATION_ID,   
+    SEARCH_ENTITY_VALIDATION_ID,   
+    CANCEL_ENTITY_VALIDATION_ID,   
+    VERSION_STR,                   
+    CATEGORIES
+FROM
+    CUSTOMER_NODE_TYPE
+WHERE CUSTOMER_NODE_TYPE_NAME = 'Post-Paid'
+
+
+
+#
+#   End (of H3ATT_DWH_CN_TYPE_V.view)
+#

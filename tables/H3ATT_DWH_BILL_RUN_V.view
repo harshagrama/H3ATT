@@ -1,0 +1,113 @@
+#---------------------------------------------------------------------------
+#
+#   File:       H3ATT_DWH_BILL_RUN_V.view
+#   Created:    09-Mar-2020 09:34:35
+#   Creator:    t_nagavaha  (Admin Harshendrakumar Nagavarapalya Nagaraj)
+#   $Revision:$
+#   $Id:$
+#
+# ===========================================================================
+# COPYRIGHT (C) 2020 CSG SYSTEMS INTERNATIONAL, INC. AND/OR ITS 
+# AFFILIATES ("CSG INTERNATIONAL"). ALL RIGHTS RESERVED. THE INFORMATION
+# CONTAINED WITHIN THIS DOCUMENT OR APPLICATION IS THE PROPERTY OF CSG 
+# INTERNATIONAL, WHICH IS CONFIDENTIAL AND PROTECTED BY INTERNATIONAL 
+# COPYRIGHT LAWS AND ANY UNAUTHORISED USE OF THIS DOCUMENT OR APPLICATION 
+# OR ITS CONTENTS MAY VIOLATE COPYRIGHT, TRADEMARK, AND OTHER LAWS. NO 
+# PART OF THIS DOCUMENT OR APPLICATION MAY BE PHOTOCOPIED, REPRODUCED 
+# OR TRANSLATED IN ANY FORM OR BY ANY MEANS, OR STORED IN A RETRIEVAL 
+# SYSTEM OR TRANSMITTED ELECTRONICALLYOR OTHERWISE, WITHOUT THE PRIOR 
+# WRITTEN CONSENT OF CSG INTERNATIONAL.
+# ===========================================================================
+#
+# NOTES:
+#   1. Keep all column and view names under 32 characters long
+#   2. Column details are ignored for views by must be supplied for
+#      documentation
+#
+# REVISION HISTORY:
+#   $Log:$
+#
+#---------------------------------------------------------------------------
+
+A.3 H3ATT_DWH_BILL_RUN_V
+
+Uses
+    Data warehouse view that emulates the content from Hutchison into the format / structure as existing in ARGOS.
+
+Column Details
+
+    BILL_RUN_ID                NOT NULL NUMBER(15)     
+    LAST_MODIFIED              NOT NULL DATE           
+    BILL_RUN_TYPE_ID           NOT NULL NUMBER(8)      
+    STATUS_CODE                NOT NULL NUMBER(8)      
+    SUMMARY_STATUS_CODE        NOT NULL NUMBER(8)      
+    PROCESS_IDENTIFIER                  VARCHAR2(80)   
+    EFFECTIVE_DATE             NOT NULL DATE           
+    EFFECTIVE_DAY_OF_MONTH     NOT NULL NUMBER(2)      
+    ATLANTA_OPERATOR_ID        NOT NULL NUMBER(8)      
+    ATLANTA_GROUP_ID           NOT NULL NUMBER(8)      
+    CREATION_TASK_QUEUE_ID              NUMBER(15)     
+    BILLING_SCHEDULE_ID                 NUMBER(15)     
+    CREATION_START_DATE                 DATE           
+    QA_IND_CODE                         NUMBER(1)      
+    LAST_TASK_QUEUE_ID                  NUMBER(15)     
+    LAST_PROCESS_NAME                   VARCHAR2(80)   
+    CUSTOMER_COUNT             NOT NULL NUMBER(8)      
+    AMOUNT                              NUMBER(19,3)   
+    ERROR_MESSAGE_ID                    NUMBER(8)      
+    ERROR_MESSAGE                       VARCHAR2(4000) 
+    GENERAL_STATS1                      NUMBER(22,6)   
+    GENERAL_STATS2                      NUMBER(22,6)   
+    GENERAL_STATS3                      NUMBER(22,6)   
+    GENERAL_STATS4                      NUMBER(22,6)   
+    GENERAL_STATS5                      NUMBER(22,6)   
+    GENERAL_STATS6                      NUMBER(22,6)   
+    GENERAL_STATS7                      NUMBER(22,6)   
+    GENERAL_STATS8                      NUMBER(22,6)   
+    GENERAL_STATS9                      NUMBER(22,6)   
+    GENERAL_STATS10                     NUMBER(22,6)   
+    BILLING_CONFIGURATION_CODE          NUMBER(8)      
+
+View Definition
+
+SELECT
+    BILL_RUN_ID               ,
+    LAST_MODIFIED             ,
+    BILL_RUN_TYPE_ID          ,
+    STATUS_CODE               ,
+    SUMMARY_STATUS_CODE       ,
+    PROCESS_IDENTIFIER        ,
+    EFFECTIVE_DATE            ,
+    EFFECTIVE_DAY_OF_MONTH    ,
+    ATLANTA_OPERATOR_ID       ,
+    ATLANTA_GROUP_ID          ,
+    CREATION_TASK_QUEUE_ID    ,
+    BILLING_SCHEDULE_ID       ,
+    CREATION_START_DATE       ,
+    QA_IND_CODE               ,
+    LAST_TASK_QUEUE_ID        ,
+    LAST_PROCESS_NAME         ,
+    CUSTOMER_COUNT            ,
+    AMOUNT                    ,
+    ERROR_MESSAGE_ID          ,
+    ERROR_MESSAGE             ,
+    GENERAL_STATS1            ,
+    GENERAL_STATS2            ,
+    GENERAL_STATS3            ,
+    GENERAL_STATS4            ,
+    GENERAL_STATS5            ,
+    GENERAL_STATS6            ,
+    GENERAL_STATS7            ,
+    GENERAL_STATS8            ,
+    GENERAL_STATS9            ,
+    GENERAL_STATS10           ,
+    BILLING_CONFIGURATION_CODE
+FROM
+    BILL_RUN
+WHERE
+    
+
+
+#
+#   End (of H3ATT_DWH_BILL_RUN_V.view)
+#

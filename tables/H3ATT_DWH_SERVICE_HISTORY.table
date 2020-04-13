@@ -1,0 +1,124 @@
+#---------------------------------------------------------------------------
+#
+#   File:       H3ATT_DWH_SERVICE_HISTORY.table
+#   Created:    23-Jan-2020 15:05:11
+#   Creator:    t_nagavaha  (Admin Harshendrakumar Nagavarapalya Nagaraj)
+#   $Revision:$
+#   $Id:$
+#
+# ===========================================================================
+# COPYRIGHT (C) 2020 CSG SYSTEMS INTERNATIONAL, INC. AND/OR ITS 
+# AFFILIATES ("CSG INTERNATIONAL"). ALL RIGHTS RESERVED. THE INFORMATION
+# CONTAINED WITHIN THIS DOCUMENT OR APPLICATION IS THE PROPERTY OF CSG 
+# INTERNATIONAL, WHICH IS CONFIDENTIAL AND PROTECTED BY INTERNATIONAL 
+# COPYRIGHT LAWS AND ANY UNAUTHORISED USE OF THIS DOCUMENT OR APPLICATION 
+# OR ITS CONTENTS MAY VIOLATE COPYRIGHT, TRADEMARK, AND OTHER LAWS. NO 
+# PART OF THIS DOCUMENT OR APPLICATION MAY BE PHOTOCOPIED, REPRODUCED 
+# OR TRANSLATED IN ANY FORM OR BY ANY MEANS, OR STORED IN A RETRIEVAL 
+# SYSTEM OR TRANSMITTED ELECTRONICALLYOR OTHERWISE, WITHOUT THE PRIOR 
+# WRITTEN CONSENT OF CSG INTERNATIONAL.
+# ===========================================================================
+#
+# NOTES:
+#   1. Keep table name under 26 characters long to allow for archive
+#      Audit table names appending _A_R.
+#   2. Keep all column, view, index, constraint names under 30
+#      characters long
+#   3. Foreign Keys must always be supported by an index.
+#   4. Choose a class that represents the growth characteristic of the table
+#      eg. If the table grows with the number of tasks in the system, use Task
+#      If the table is transient, use Temp
+#      If the table is not dependent on any other, use Misc
+#   5. Choose a size that represents the expected table size within the class
+#
+# REVISION HISTORY:
+#   $Log:$
+#
+#---------------------------------------------------------------------------
+
+A.3 H3ATT_DWH_SERVICE_HISTORY
+
+Uses
+    Data warehouse table that emulates the content from Hutchison into the format / structure as existing in ARGOS. 
+	
+Column Details
+
+    SERVICE_ID                      NUMBER(10)		        NOT NULL                       
+    LAST_MODIFIED                   DATE          		    NOT NULL             
+    EFFECTIVE_START_DATE            DATE                	NOT NULL             
+    EFFECTIVE_END_DATE              DATE                	NOT NULL             
+    ATLANTA_OPERATOR_ID             NUMBER(8)           	NOT NULL             
+    SERVICE_NAME                    VARCHAR2(64)        	NOT NULL             
+    NETWORK_NAME                    VARCHAR2(64)                                         
+    SERVICE_TYPE_ID                 NUMBER(8)           	NOT NULL             
+    SERVICE_SUBTYPE                 VARCHAR2(40)                                           
+    CUSTOMER_NODE_ID                NUMBER(10)          	NOT NULL             
+    SERVICE_STATUS_CODE             NUMBER(8)           	NOT NULL             
+    BASE_PRODUCT_INSTANCE_ID        NUMBER(10)          	NOT NULL             
+    PERSON_ID                       NUMBER(10)                                           
+    CONTRACT_ID                     NUMBER(10)                                           
+    CONTRACT_REFERENCE              VARCHAR2(40)                                           
+    A_ADDRESS_ID                    NUMBER(10)                                           
+    B_ADDRESS_ID                    NUMBER(10)                                           
+    REQUIRED_BY_DATE                DATE                                           
+    PROVISIONED_DATE                DATE                                           
+    ACTIVE_DATE                     DATE                                           
+    BILLING_PRIORITY                NUMBER(4)                                           
+    BILLING_COMPLEXITY              NUMBER(10)                                           
+    GRADE_OF_SERVICE                VARCHAR2(40)                                           
+    SERVICE_USAGE                   VARCHAR2(40)                                           
+    COMMS_TYPE                      VARCHAR2(40)                                           
+    GL_CODE_ID                      NUMBER(8)                                           
+    INDUSTRY_GENERAL_1              VARCHAR2(255)                                           
+    INDUSTRY_GENERAL_2              VARCHAR2(255)                                           
+    INDUSTRY_GENERAL_3              VARCHAR2(255)                                           
+    INDUSTRY_GENERAL_4              VARCHAR2(255)                                           
+    INDUSTRY_GENERAL_5              VARCHAR2(255)                                           
+    INDUSTRY_GENERAL_6              VARCHAR2(255)                                           
+    INDUSTRY_GENERAL_7              VARCHAR2(255)                                           
+    INDUSTRY_GENERAL_8              VARCHAR2(255)                                           
+    INDUSTRY_GENERAL_9              VARCHAR2(255)                                           
+    INDUSTRY_GENERAL_10             VARCHAR2(255)                                           
+    GENERAL_1                       VARCHAR2(255)                                           
+    GENERAL_2                       VARCHAR2(255)                                           
+    GENERAL_3                       VARCHAR2(255)                                           
+    GENERAL_4                       VARCHAR2(255)                                           
+    GENERAL_5                       VARCHAR2(255)                                           
+    GENERAL_6                       VARCHAR2(255)                                           
+    GENERAL_7                       VARCHAR2(255)                                           
+    GENERAL_8                       VARCHAR2(255)                                           
+    GENERAL_9                       VARCHAR2(255)                                           
+    GENERAL_10                      VARCHAR2(255)
+
+
+Key and Index Details
+
+Primary Key:    P_H3ATT_DWH_SERVICE_HISTORY
+                (SERVICE_ID, EFFECTIVE_START_DATE, EFFECTIVE_END_DATE)
+
+Index:          I_H3ATT_DWH_SERVICE_HISTORY_NAME
+                (SERVICE_NAME, EFFECTIVE_START_DATE, EFFECTIVE_END_DATE)
+                
+                I_H3ATT_DWH_SERVICE_HISTORY_CUST_NODE
+                (CUSTOMER_NODE_ID)
+
+
+
+
+Other Constraints
+
+    1. DVP checks, etc
+
+
+Classification
+
+Type:           Normal 
+
+Class:          Misc
+
+Sizing:         Medium
+
+
+#
+#   End (of H3ATT_DWH_SERVICE_HISTORY.table)
+#

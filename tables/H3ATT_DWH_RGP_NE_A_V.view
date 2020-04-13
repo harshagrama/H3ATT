@@ -1,0 +1,169 @@
+#---------------------------------------------------------------------------
+#
+#   File:       H3ATT_DWH_RGP_NE_A_V.view
+#   Created:    06-Feb-2020 14:02:36
+#   Creator:    t_nagavaha  (Admin Harshendrakumar Nagavarapalya Nagaraj)
+#   $Revision: 1.2 $
+#   $Id: H3ATT_DWH_RGP_NE_A_V.view,v 1.2 2020/02/07 12:03:51 t_nagavaha Exp $
+#
+# ===========================================================================
+# COPYRIGHT (C) 2020 CSG SYSTEMS INTERNATIONAL, INC. AND/OR ITS 
+# AFFILIATES ("CSG INTERNATIONAL"). ALL RIGHTS RESERVED. THE INFORMATION
+# CONTAINED WITHIN THIS DOCUMENT OR APPLICATION IS THE PROPERTY OF CSG 
+# INTERNATIONAL, WHICH IS CONFIDENTIAL AND PROTECTED BY INTERNATIONAL 
+# COPYRIGHT LAWS AND ANY UNAUTHORISED USE OF THIS DOCUMENT OR APPLICATION 
+# OR ITS CONTENTS MAY VIOLATE COPYRIGHT, TRADEMARK, AND OTHER LAWS. NO 
+# PART OF THIS DOCUMENT OR APPLICATION MAY BE PHOTOCOPIED, REPRODUCED 
+# OR TRANSLATED IN ANY FORM OR BY ANY MEANS, OR STORED IN A RETRIEVAL 
+# SYSTEM OR TRANSMITTED ELECTRONICALLYOR OTHERWISE, WITHOUT THE PRIOR 
+# WRITTEN CONSENT OF CSG INTERNATIONAL.
+# ===========================================================================
+#
+# NOTES:
+#   1. Keep all column and view names under 32 characters long
+#   2. Column details are ignored for views by must be supplied for
+#      documentation
+#
+# REVISION HISTORY:
+#   $Log: H3ATT_DWH_RGP_NE_A_V.view,v $
+#   Revision 1.2  2020/02/07 12:03:51  t_nagavaha
+#   Ticket CF-8467: Added column ENTRY_DATE
+#
+#
+#---------------------------------------------------------------------------
+
+A.3 H3ATT_DWH_RGP_NE_A_V
+
+Uses
+    Data warehouse view that emulates the content of table RGP_NORMALISED_EVENT_A from Hutchison into the format / structure as existing in ARGOS.
+
+Column Details
+
+    BILL_RUN_ID                   NUMBER              
+    VOLUME                        NUMBER              
+    CHARGE                        NUMBER              
+    CURRENCY_ID                   NUMBER              
+    CUSTOMER_NODE_ID              NUMBER              
+    C_PARTY_CARRIER_CODE          NUMBER              
+    C_PARTY_CELL_ID               VARCHAR2(20 CHAR)   
+    C_PARTY_LOCATION_CODE         NUMBER              
+    C_PARTY_NAME                  VARCHAR2(40 CHAR)   
+    C_PARTY_ROUTE                 VARCHAR2(80 CHAR)   
+    C_PARTY_TON_CODE              NUMBER              
+    DURATION                      NUMBER              
+    END_DAY_OF_MONTH              NUMBER              
+    ENTRY_DATE                    DATE                
+    EQUIPMENT_ID                  NUMBER              
+    EVENT_SOURCE                  VARCHAR2(40 CHAR)   
+    EVENT_SUB_TYPE_CODE           NUMBER              
+    EVENT_TYPE_CODE               NUMBER              
+    FAC_GROUP_INSTANCE_ID         NUMBER              
+    FULL_PATH                     VARCHAR2(40 CHAR)   
+    GENERAL_1                     VARCHAR2(4000 CHAR) 
+    GENERAL_10                    VARCHAR2(4000 CHAR) 
+    GENERAL_11                    VARCHAR2(4000 CHAR) 
+    GENERAL_12                    VARCHAR2(4000 CHAR) 
+    GENERAL_13                    VARCHAR2(4000 CHAR) 
+    GENERAL_14                    VARCHAR2(4000 CHAR) 
+    GENERAL_15                    VARCHAR2(4000 CHAR) 
+    GENERAL_16                    VARCHAR2(4000 CHAR) 
+    GENERAL_17                    VARCHAR2(4000 CHAR) 
+    GENERAL_18                    VARCHAR2(4000 CHAR) 
+    GENERAL_19                    VARCHAR2(4000 CHAR) 
+    GENERAL_2                     VARCHAR2(4000 CHAR) 
+    GENERAL_20                    VARCHAR2(4000 CHAR) 
+    GENERAL_3                     VARCHAR2(4000 CHAR) 
+    GENERAL_4                     VARCHAR2(4000 CHAR) 
+    GENERAL_5                     VARCHAR2(4000 CHAR) 
+    GENERAL_6                     VARCHAR2(4000 CHAR) 
+    GENERAL_7                     VARCHAR2(4000 CHAR) 
+    GENERAL_8                     VARCHAR2(4000 CHAR) 
+    GENERAL_9                     VARCHAR2(4000 CHAR) 
+    LAST_MODIFIED                 DATE                
+    NORMALISED_EVENT_TYPE_ID      NUMBER              
+    OPERATION_CODE                NUMBER              
+    PERIOD_END_DATE               DATE                
+    PERIOD_START_DATE             DATE                
+    PRODUCT_INSTANCE_ID           NUMBER              
+    PULSES                        NUMBER              
+    QA_IND_CODE                   NUMBER              
+    RATE_BAND                     VARCHAR2(40 CHAR)   
+    RGP_FILE_ID                   NUMBER              
+    RGP_FILE_RECORD_NR            NUMBER              
+    ROOT_CUSTOMER_NODE_ID         NUMBER              
+    SERVICE_ID                    NUMBER              
+    STATUS_CODE                   NUMBER              
+    SWITCH_START_DATE             DATE                
+    TARIFF_ID                     NUMBER              
+    USERNAME                      VARCHAR2(30 CHAR)   
+    VERSION_STR                   VARCHAR2(30 CHAR)   
+    CASCADE_CARRIER_CODE          NUMBER         
+
+View Definition
+
+SELECT 
+    RNE.BILL_RUN_ID,
+    RNE.VOLUME,
+    RNE.CHARGE,
+    RNE.CURRENCY_ID,
+    RNE.CUSTOMER_NODE_ID,
+    RNE.C_PARTY_CARRIER_CODE,
+    RNE.C_PARTY_CELL_ID,
+    RNE.C_PARTY_LOCATION_CODE,
+    RNE.C_PARTY_NAME,
+    RNE.C_PARTY_ROUTE,
+    RNE.C_PARTY_TON_CODE,
+    RNE.DURATION,
+    RNE.END_DAY_OF_MONTH,
+    RNE.ENTRY_DATE,
+    RNE.EQUIPMENT_ID,
+    RNE.EVENT_SOURCE,
+    RNE.EVENT_SUB_TYPE_CODE,
+    RNE.EVENT_TYPE_CODE,
+    RNE.FAC_GROUP_INSTANCE_ID,
+    RNE.FULL_PATH,
+    RNE.GENERAL_1,
+    RNE.GENERAL_10,
+    RNE.GENERAL_11,
+    RNE.GENERAL_12,
+    RNE.GENERAL_13,
+    RNE.GENERAL_14,
+    RNE.GENERAL_15,
+    RNE.GENERAL_16,
+    RNE.GENERAL_17,
+    RNE.GENERAL_18,
+    RNE.GENERAL_19,
+    RNE.GENERAL_2,
+    RNE.GENERAL_20,
+    RNE.GENERAL_3,
+    RNE.GENERAL_4,
+    RNE.GENERAL_5,
+    RNE.GENERAL_6,
+    RNE.GENERAL_7,
+    RNE.GENERAL_8,
+    RNE.GENERAL_9,
+    RNE.LAST_MODIFIED,
+    RNE.NORMALISED_EVENT_TYPE_ID,
+    RNE.PERIOD_END_DATE,
+    RNE.PERIOD_START_DATE,
+    RNE.PRODUCT_INSTANCE_ID,
+    RNE.PULSES,
+    RNE.QA_IND_CODE,
+    RNE.RATE_BAND,
+    RNE.RGP_FILE_ID,
+    RNE.RGP_FILE_RECORD_NR,
+    RNE.ROOT_CUSTOMER_NODE_ID,
+    RNE.SERVICE_ID,
+    RNE.STATUS_CODE,
+    RNE.SWITCH_START_DATE,
+    RNE.TARIFF_ID,
+    RNE.VERSION_STR,
+    RNE.CASCADE_CARRIER_CODE
+FROM RGP_NORMALISED_EVENT_A RNE
+JOIN ACCOUNT ACC ON RNE.CUSTOMER_NODE_ID=ACC.CUSTOMER_NODE_ID AND ACC.GENERAL_2 = 'CLARIFY'
+WHERE 1=1
+
+
+#
+#   End (of H3ATT_DWH_RGP_NE_A_V.view)
+#

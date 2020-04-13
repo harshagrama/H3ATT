@@ -1,0 +1,152 @@
+#---------------------------------------------------------------------------
+#
+#   File:       H3ATT_DWH_INVOICE_V.view
+#   Created:    09-Mar-2020 09:23:11
+#   Creator:    t_nagavaha  (Admin Harshendrakumar Nagavarapalya Nagaraj)
+#   $Revision: 1.3 $
+#   $Id: H3ATT_DWH_INVOICE_V.view,v 1.3 2020/03/18 13:58:08 t_nagavaha Exp $
+#
+# ===========================================================================
+# COPYRIGHT (C) 2020 CSG SYSTEMS INTERNATIONAL, INC. AND/OR ITS 
+# AFFILIATES ("CSG INTERNATIONAL"). ALL RIGHTS RESERVED. THE INFORMATION
+# CONTAINED WITHIN THIS DOCUMENT OR APPLICATION IS THE PROPERTY OF CSG 
+# INTERNATIONAL, WHICH IS CONFIDENTIAL AND PROTECTED BY INTERNATIONAL 
+# COPYRIGHT LAWS AND ANY UNAUTHORISED USE OF THIS DOCUMENT OR APPLICATION 
+# OR ITS CONTENTS MAY VIOLATE COPYRIGHT, TRADEMARK, AND OTHER LAWS. NO 
+# PART OF THIS DOCUMENT OR APPLICATION MAY BE PHOTOCOPIED, REPRODUCED 
+# OR TRANSLATED IN ANY FORM OR BY ANY MEANS, OR STORED IN A RETRIEVAL 
+# SYSTEM OR TRANSMITTED ELECTRONICALLYOR OTHERWISE, WITHOUT THE PRIOR 
+# WRITTEN CONSENT OF CSG INTERNATIONAL.
+# ===========================================================================
+#
+# NOTES:
+#   1. Keep all column and view names under 32 characters long
+#   2. Column details are ignored for views by must be supplied for
+#      documentation
+#
+# REVISION HISTORY:
+#   $Log: H3ATT_DWH_INVOICE_V.view,v $
+#   Revision 1.3  2020/03/18 13:58:08  t_nagavaha
+#   Ticket CF-8466: Fixed from_date and to_date (GENERAL_6 & GENERAL_7)
+#
+#   Revision 1.2  2020/03/12 11:17:11  t_nagavaha
+#   Ticket CF-8466: Fixed GENERAL_7 as per the DWH data
+#
+#   Revision 1.1  2020/03/11 08:35:21  t_nagavaha
+#   Ticket CF-8466: Initial revision
+#
+#
+#---------------------------------------------------------------------------
+
+A.3 H3ATT_DWH_INVOICE_V
+
+Uses
+    Data warehouse view that emulates the content from Hutchison into the format / structure as existing in ARGOS.
+
+Column Details
+
+    INVOICE_ID                     NOT NULL NUMBER(15)    
+    LAST_MODIFIED                  NOT NULL DATE          
+    CUSTOMER_INVOICE_STR                    VARCHAR2(30)  
+    INVOICE_TYPE_ID                NOT NULL NUMBER(8)     
+    BILL_RUN_ID                    NOT NULL NUMBER(15)    
+    RUNNING_IND_CODE                        NUMBER(1)     
+    QA_IND_CODE                             NUMBER(1)     
+    SUPPRESS_IND_CODE                       NUMBER(1)     
+    ACCOUNT_ID                     NOT NULL NUMBER(15)    
+    INVOICED_ACCOUNT_ID                     NUMBER(15)    
+    CUSTOMER_ACCOUNT_INVOICE_STR            VARCHAR2(30)  
+    CUSTOMER_NODE_ID               NOT NULL NUMBER(15)    
+    IMAGE_GENERATED_IND_CODE                NUMBER(1)     
+    APPLIED_IND_CODE                        NUMBER(1)     
+    EFFECTIVE_DATE                 NOT NULL DATE          
+    ISSUE_DATE                     NOT NULL DATE          
+    ORIGINAL_PAYMENT_DUE_DATE      NOT NULL DATE          
+    PAYMENT_DUE_DATE               NOT NULL DATE          
+    EARLY_PAYMENT_DATE                      DATE          
+    INVOICE_AMOUNT                 NOT NULL NUMBER(19,3)  
+    STATEMENT_AMOUNT                        NUMBER(19,3)  
+    BALANCE_FORWARD                NOT NULL NUMBER(19,3)  
+    ACCOUNT_BALANCE                NOT NULL NUMBER(19,3)  
+    ACCOUNT_INITIAL_DUE            NOT NULL NUMBER(19,3)  
+    CURRENT_DUE                    NOT NULL NUMBER(19,3)  
+    TOTAL_PAYMENTS                 NOT NULL NUMBER(19,3)  
+    TOTAL_ADJUSTMENTS              NOT NULL NUMBER(19,3)  
+    EARLY_PAYMENT_DISCOUNT                  NUMBER(19,3)  
+    PAYMENT_DUE_DISCOUNT                    NUMBER(19,3)  
+    LATE_PAYMENT_CHARGE                     NUMBER(19,3)  
+    EARLY_PAYMENT_ACCOUNT_BALANCE           NUMBER(19,3)  
+    PAYMENT_DUE_ACCOUNT_BALANCE             NUMBER(19,3)  
+    UNBILLED_AMOUNT                NOT NULL NUMBER(22,6)  
+    GENERAL_1                               VARCHAR2(255) 
+    GENERAL_2                               VARCHAR2(255) 
+    GENERAL_3                               VARCHAR2(255) 
+    GENERAL_4                               VARCHAR2(255) 
+    GENERAL_5                               VARCHAR2(255) 
+    GENERAL_6                               VARCHAR2(255) 
+    GENERAL_7                               VARCHAR2(255) 
+    GENERAL_8                               VARCHAR2(255) 
+    GENERAL_9                               VARCHAR2(255) 
+    GENERAL_10                              VARCHAR2(255) 
+    PENDING_CONSOLIDATION_IND_CODE          NUMBER(1)     
+    CONSOLIDATION_INVOICE_ID                NUMBER(15)    
+    CONSOLIDATED_INVOICE_IND_CODE           NUMBER(1)     
+    DISPUTED_AMOUNT                NOT NULL NUMBER(19,3)
+
+View Definition
+
+SELECT
+    INV.INVOICE_ID                      ,
+    INV.LAST_MODIFIED                   ,
+    INV.CUSTOMER_INVOICE_STR            ,
+    INV.INVOICE_TYPE_ID                 ,
+    INV.BILL_RUN_ID                     ,
+    INV.RUNNING_IND_CODE                ,
+    INV.QA_IND_CODE                     ,
+    INV.SUPPRESS_IND_CODE               ,
+    INV.ACCOUNT_ID                      ,
+    INV.INVOICED_ACCOUNT_ID             ,
+    INV.CUSTOMER_ACCOUNT_INVOICE_STR    ,
+    INV.CUSTOMER_NODE_ID                ,
+    INV.IMAGE_GENERATED_IND_CODE        ,
+    INV.APPLIED_IND_CODE                ,
+    INV.EFFECTIVE_DATE                  ,
+    INV.ISSUE_DATE                      ,
+    INV.ORIGINAL_PAYMENT_DUE_DATE       ,
+    INV.PAYMENT_DUE_DATE                ,
+    INV.EARLY_PAYMENT_DATE              ,
+    INV.INVOICE_AMOUNT                  ,
+    INV.STATEMENT_AMOUNT                ,
+    INV.BALANCE_FORWARD                 ,
+    INV.ACCOUNT_BALANCE                 ,
+    INV.ACCOUNT_INITIAL_DUE             ,
+    INV.CURRENT_DUE                     ,
+    INV.TOTAL_PAYMENTS                  ,
+    INV.TOTAL_ADJUSTMENTS               ,
+    INV.EARLY_PAYMENT_DISCOUNT          ,
+    INV.PAYMENT_DUE_DISCOUNT            ,
+    INV.LATE_PAYMENT_CHARGE             ,
+    INV.EARLY_PAYMENT_ACCOUNT_BALANCE   ,
+    INV.PAYMENT_DUE_ACCOUNT_BALANCE     ,
+    INV.UNBILLED_AMOUNT                 ,
+    INV.GENERAL_1                       ,
+    INV.GENERAL_2                       ,
+    INV.GENERAL_3                       ,
+    INV.GENERAL_4                       ,
+    INV.GENERAL_5                       ,
+    regexp_substr(INV.GENERAL_7,'[^:]+')   AS GENERAL_6 ,
+    regexp_substr(INV.GENERAL_7,'[^:]*$')  AS GENERAL_7 ,
+    INV.GENERAL_8                       ,
+    INV.GENERAL_9                       ,
+    INV.GENERAL_10                      ,
+    INV.PENDING_CONSOLIDATION_IND_CODE  ,
+    INV.CONSOLIDATION_INVOICE_ID        ,
+    INV.CONSOLIDATED_INVOICE_IND_CODE   ,
+    INV.DISPUTED_AMOUNT                 
+FROM INVOICE INV
+JOIN ACCOUNT ACC ON INV.CUSTOMER_NODE_ID = ACC.CUSTOMER_NODE_ID AND ACC.GENERAL_2 = 'CLARIFY'
+WHERE 1=1
+
+#
+#   End (of H3ATT_DWH_INVOICE_V.view)
+#

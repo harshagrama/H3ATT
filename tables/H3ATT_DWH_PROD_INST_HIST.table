@@ -1,0 +1,110 @@
+#---------------------------------------------------------------------------
+#
+#   File:       H3ATT_DWH_PROD_INST_HIST.table
+#   Created:    23-Jan-2020 15:56:05
+#   Creator:    t_nagavaha  (Admin Harshendrakumar Nagavarapalya Nagaraj)
+#   $Revision:$
+#   $Id:$
+#
+# ===========================================================================
+# COPYRIGHT (C) 2020 CSG SYSTEMS INTERNATIONAL, INC. AND/OR ITS 
+# AFFILIATES ("CSG INTERNATIONAL"). ALL RIGHTS RESERVED. THE INFORMATION
+# CONTAINED WITHIN THIS DOCUMENT OR APPLICATION IS THE PROPERTY OF CSG 
+# INTERNATIONAL, WHICH IS CONFIDENTIAL AND PROTECTED BY INTERNATIONAL 
+# COPYRIGHT LAWS AND ANY UNAUTHORISED USE OF THIS DOCUMENT OR APPLICATION 
+# OR ITS CONTENTS MAY VIOLATE COPYRIGHT, TRADEMARK, AND OTHER LAWS. NO 
+# PART OF THIS DOCUMENT OR APPLICATION MAY BE PHOTOCOPIED, REPRODUCED 
+# OR TRANSLATED IN ANY FORM OR BY ANY MEANS, OR STORED IN A RETRIEVAL 
+# SYSTEM OR TRANSMITTED ELECTRONICALLYOR OTHERWISE, WITHOUT THE PRIOR 
+# WRITTEN CONSENT OF CSG INTERNATIONAL.
+# ===========================================================================
+#
+# NOTES:
+#   1. Keep table name under 26 characters long to allow for archive
+#      Audit table names appending _A_R.
+#   2. Keep all column, view, index, constraint names under 30
+#      characters long
+#   3. Foreign Keys must always be supported by an index.
+#   4. Choose a class that represents the growth characteristic of the table
+#      eg. If the table grows with the number of tasks in the system, use Task
+#      If the table is transient, use Temp
+#      If the table is not dependent on any other, use Misc
+#   5. Choose a size that represents the expected table size within the class
+#
+# REVISION HISTORY:
+#   $Log:$
+#
+#---------------------------------------------------------------------------
+
+A.3 H3ATT_DWH_PROD_INST_HIST
+
+Uses
+    Data warehouse table that emulates the content from Hutchison into the format / structure as existing in ARGOS. 
+
+Column Details
+
+    PRODUCT_INSTANCE_ID                 NUMBER(10)          NOT NULL                         
+    LAST_MODIFIED                       DATE                NOT NULL               
+    ATLANTA_OPERATOR_ID                 NUMBER(8)           NOT NULL               
+    EFFECTIVE_START_DATE                DATE                NOT NULL               
+    EFFECTIVE_END_DATE                  DATE                NOT NULL               
+    PRODUCT_ID                          NUMBER(8)           NOT NULL               
+    PRODUCT_INSTANCE_STATUS_CODE        NUMBER(8)           NOT NULL               
+    CUSTOMER_NODE_ID                    NUMBER(10)          NOT NULL               
+    BASE_PRODUCT_INSTANCE_ID            NUMBER(10)                                       
+    CONTRACT_ID                         NUMBER(10)                                       
+    FROM_PRODUCT_INSTANCE_ID            NUMBER(10)                                       
+    FROM_PRODUCT_ID                     NUMBER(8)                                       
+    TO_PRODUCT_INSTANCE_ID              NUMBER(10)                                       
+    TO_PRODUCT_ID                       NUMBER(8)                                       
+    UNCOMPLETED_IND_CODE                NUMBER(1)                                       
+    GENERAL_1                           VARCHAR2(255)                                       
+    GENERAL_2                           VARCHAR2(255)                                       
+    GENERAL_3                           VARCHAR2(255)                                       
+    GENERAL_4                           VARCHAR2(255)                                       
+    GENERAL_5                           VARCHAR2(255)                                       
+    GENERAL_6                           VARCHAR2(255)                                       
+    GENERAL_7                           VARCHAR2(255)                                       
+    GENERAL_8                           VARCHAR2(255)                                       
+    GENERAL_9                           VARCHAR2(255)                                       
+    GENERAL_10                          VARCHAR2(255)                                       
+    ACTIVE_DATE                         DATE                                       
+    PRODUCT_BUNDLE_ID                   NUMBER(8)                                       
+    INDUSTRY_GENERAL_1                  VARCHAR2(255)                                       
+    INDUSTRY_GENERAL_2                  VARCHAR2(255)                                       
+    INDUSTRY_GENERAL_3                  VARCHAR2(255)                                       
+    INDUSTRY_GENERAL_4                  VARCHAR2(255)                                       
+    INDUSTRY_GENERAL_5                  VARCHAR2(255)                                       
+    INDUSTRY_GENERAL_6                  VARCHAR2(255)                                       
+    INDUSTRY_GENERAL_7                  VARCHAR2(255)                                       
+    INDUSTRY_GENERAL_8                  VARCHAR2(255)                                       
+    INDUSTRY_GENERAL_9                  VARCHAR2(255)                                       
+    INDUSTRY_GENERAL_10                 VARCHAR2(255) 
+
+Key and Index Details
+
+Primary Key:    P_H3ATT_DWH_PROD_INST_HIST
+                (PRODUCT_INSTANCE_ID, EFFECTIVE_START_DATE, EFFECTIVE_END_DATE)
+
+Index:          I_H3ATT_DWH_PROD_INST_HIST_CN
+                (CUSTOMER_NODE_ID, EFFECTIVE_START_DATE, EFFECTIVE_END_DATE, PRODUCT_INSTANCE_ID)
+
+
+
+Other Constraints
+
+    1. DVP checks, etc
+
+
+Classification
+
+Type:           Normal 
+
+Class:          Misc 
+
+Sizing:         Medium
+
+
+#
+#   End (of H3ATT_DWH_PROD_INST_HIST.table)
+#

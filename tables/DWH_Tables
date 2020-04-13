@@ -1,0 +1,26 @@
+normalised_event table
+charge table
+reference_code / reference_type
+customer_query
+customer_node_da_array
+derived_attribute_array
+service_history: View 
+customer_node_history
+person_history
+product_instance_history 
+address_history
+invoice
+rgp_normalised_event
+product_history
+customer_node_inv_format
+normalised_event_error
+rgp_normalised_event_a
+normalised_event_a
+normalised_event_file
+account
+tariff_history
+normalised_event_type
+customer_node_type
+derived_attribute_history
+schedule
+bill_run

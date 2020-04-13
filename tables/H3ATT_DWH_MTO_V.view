@@ -1,0 +1,74 @@
+#---------------------------------------------------------------------------
+#
+#   File:       H3ATT_DWH_MTO_V.view
+#   Created:    25-Mar-2020 12:34:44
+#   Creator:    t_nagavaha  (Admin Harshendrakumar Nagavarapalya Nagaraj)
+#   $Revision:$
+#   $Id:$
+#
+# ===========================================================================
+# COPYRIGHT (C) 2020 CSG SYSTEMS INTERNATIONAL, INC. AND/OR ITS 
+# AFFILIATES ("CSG INTERNATIONAL"). ALL RIGHTS RESERVED. THE INFORMATION
+# CONTAINED WITHIN THIS DOCUMENT OR APPLICATION IS THE PROPERTY OF CSG 
+# INTERNATIONAL, WHICH IS CONFIDENTIAL AND PROTECTED BY INTERNATIONAL 
+# COPYRIGHT LAWS AND ANY UNAUTHORISED USE OF THIS DOCUMENT OR APPLICATION 
+# OR ITS CONTENTS MAY VIOLATE COPYRIGHT, TRADEMARK, AND OTHER LAWS. NO 
+# PART OF THIS DOCUMENT OR APPLICATION MAY BE PHOTOCOPIED, REPRODUCED 
+# OR TRANSLATED IN ANY FORM OR BY ANY MEANS, OR STORED IN A RETRIEVAL 
+# SYSTEM OR TRANSMITTED ELECTRONICALLYOR OTHERWISE, WITHOUT THE PRIOR 
+# WRITTEN CONSENT OF CSG INTERNATIONAL.
+# ===========================================================================
+#
+# NOTES:
+#   1. Keep all column and view names under 32 characters long
+#   2. Column details are ignored for views by must be supplied for
+#      documentation
+#
+# REVISION HISTORY:
+#   $Log:$
+#
+#---------------------------------------------------------------------------
+
+A.3 H3ATT_DWH_MTO_V
+
+Uses
+    Data warehouse view that emulates Minimum Turnover from Hutchison into the format / structure as existing in ARGOS.
+
+Column Details
+
+    ACCOUNT_NAME            VARCHAR(255)           NOT NULL
+        
+    CUSTOMER_NODE_ID        NUMBER(8)              NOT NULL
+        
+    MINDESTUMSATZ           NUMBER(8)              NOT NULL
+        
+    INSTANCE_ID             NUMBER                 NOT NULL
+        
+    CO_CODE                 NUMBER                 NOT NULL
+        
+    FI_CODE                 NUMBER                 NOT NULL
+        
+    EFFECTIVE_START_DATE    DATE                   NOT NULL
+        
+    EFFECTIVE_END_DATE      DATE                   NOT NULL
+        
+View Definition
+
+SELECT SUBSTR(ac.account_name,4) as kundennummer
+      ,ac.customer_node_id
+      ,sda.result3_value as mindestumsatz
+      ,sda.result1_value as instance_id
+      ,regexp_substr(sda.result4_value,'[^:]+') as co_code
+      ,regexp_substr(sda.result4_value,'[^:]*$') as fi_code
+      ,sda.effective_start_date
+      ,sda.effective_end_date
+FROM service_history sh
+JOIN account ac ON sh.service_name=ac.account_name 
+JOIN service_da_array sda ON sh.service_id = sda.service_id and sda.derived_attribute_id=31001654 /* dsH3ATT_BUS_MTO_Info */
+WHERE 1=1 
+  AND ac.general_2='CLARIFY'
+
+
+#
+#   End (of H3ATT_DWH_MTO_V.view)
+#

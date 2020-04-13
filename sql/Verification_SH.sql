@@ -1,0 +1,156 @@
+ALTER SESSION set NLS_DATE_FORMAT ='DD-MM-YYYY HH24:MI:SS'
+--------------------------------------------------------------------------------------------
+-- SERVICE_HISTORY VERIFICATION
+--------------------------------------------------------------------------------------------
+----EXPORT DATA FROM PROD LIKE 
+SELECT  
+  SH.SERVICE_ID,              
+  SH.LAST_MODIFIED,           
+  SH.EFFECTIVE_START_DATE,    
+  SH.EFFECTIVE_END_DATE,      
+  SH.ATLANTA_OPERATOR_ID,     
+  SH.SERVICE_NAME,            
+  SH.NETWORK_NAME,            
+  SH.SERVICE_TYPE_ID,         
+  SH.SERVICE_SUBTYPE,         
+  SH.CUSTOMER_NODE_ID,        
+  SH.SERVICE_STATUS_CODE,     
+  SH.BASE_PRODUCT_INSTANCE_ID,
+  SH.PERSON_ID,               
+  SH.CONTRACT_ID,             
+  SH.CONTRACT_REFERENCE,      
+  SH.A_ADDRESS_ID,            
+  SH.B_ADDRESS_ID,            
+  SH.REQUIRED_BY_DATE,        
+  SH.PROVISIONED_DATE,        
+  SH.ACTIVE_DATE,             
+  SH.BILLING_PRIORITY,        
+  SH.BILLING_COMPLEXITY,      
+  SH.GRADE_OF_SERVICE,        
+  SH.SERVICE_USAGE,           
+  SH.COMMS_TYPE,              
+  SH.GL_CODE_ID,              
+  (   SELECT 'dTT_RAT_RP_' || ABBREVIATION  
+      FROM REFERENCE_CODE
+      WHERE REFERENCE_TYPE_ID = 31001285
+        AND REFERENCE_CODE= SH.INDUSTRY_GENERAL_8) as INDUSTRY_GENERAL_1,      
+  DECODE (SH.INDUSTRY_GENERAL_8,NULL,'2','1') as INDUSTRY_GENERAL_2,      
+  SH.INDUSTRY_GENERAL_9 as INDUSTRY_GENERAL_3,      
+  SH.INDUSTRY_GENERAL_4,      
+  SH.INDUSTRY_GENERAL_5,      
+  SH.INDUSTRY_GENERAL_6,      
+  SH.INDUSTRY_GENERAL_7,      
+  SH.INDUSTRY_GENERAL_8,      
+  SH.INDUSTRY_GENERAL_9,      
+  SH.INDUSTRY_GENERAL_10,     
+  SUBSTR(SH.NETWORK_NAME,4) as GENERAL_1,               
+  DECODE (SH.GENERAL_2,NULL,'0',SH.GENERAL_2) as GENERAL_2,              
+  DECODE (SH.GENERAL_3,NULL,'0',SH.GENERAL_3) as GENERAL_3,               
+  SDA.RESULT1_VALUE as GENERAL_4,               
+  PIH.GENERAL_9 as GENERAL_5,               
+  PIH.INDUSTRY_GENERAL_10 as GENERAL_6,               
+  SH.GENERAL_7,               
+  SH.GENERAL_8,               
+  SH.GENERAL_9,               
+  SH.GENERAL_10
+FROM SERVICE_HISTORY SH
+JOIN ACCOUNT ACC ON SH.CUSTOMER_NODE_ID = ACC.CUSTOMER_NODE_ID AND ACC.ACCOUNT_NAME like 'PBA%'
+JOIN SERVICE_DA_ARRAY SDA ON SH.SERVICE_ID = SDA.SERVICE_ID AND SDA.DERIVED_ATTRIBUTE_ID = 31001194
+        AND SH.EFFECTIVE_START_DATE BETWEEN SDA.EFFECTIVE_START_DATE AND SDA.EFFECTIVE_END_DATE
+JOIN PRODUCT_INSTANCE_HISTORY PIH ON SH.BASE_PRODUCT_INSTANCE_ID = PIH.PRODUCT_INSTANCE_ID
+        AND SH.EFFECTIVE_START_DATE BETWEEN PIH.EFFECTIVE_START_DATE AND PIH.EFFECTIVE_END_DATE
+WHERE 1=1
+and SH.service_name like '012%'
+and rownum <=1000 
+order by sh.service_name
+------------------------------------------DWH---------------------
+select * from sv_bus.service_history 
+where service_name like '012%'
+and effective_end_date > sysdate
+and rownum <=1000 
+order by service_name
+_________________________________________________________________________________
+select * from zdwh_sh where service_name = '012034532' --11293896
+select * from zh3at_sh where service_name = '012034532'
+----------------------------------------------------------------------------------------------
+select 
+SERVICE_NAME
+,GENERAL_1
+,GENERAL_2
+,GENERAL_3
+,GENERAL_4
+,GENERAL_5,GENERAL_6,GENERAL_7,INDUSTRY_GENERAL_1,INDUSTRY_GENERAL_2,INDUSTRY_GENERAL_3
+from zh3at_sh 
+where service_name in (
+'012020185',
+'012020590',
+'012021448',
+'012021552',
+'012021636',
+'012022198',
+'012023630',
+'012025072',
+'012025235',
+'012025331',
+'012027454',
+'012028234',
+'012029346',
+'012031195',
+'012031288',
+'012031514',
+'012031515',
+'012032429',
+'012033114',
+'012033216',
+'012034495',
+'012034532')
+MINUS
+select  
+SERVICE_NAME
+,GENERAL_1
+,GENERAL_2
+,GENERAL_3
+,GENERAL_4
+,GENERAL_5,GENERAL_6,GENERAL_7,INDUSTRY_GENERAL_1,INDUSTRY_GENERAL_2,INDUSTRY_GENERAL_3
+from zdwh_sh
+where service_name in (
+'012020185',
+'012020590',
+'012021448',
+'012021552',
+'012021636',
+'012022198',
+'012023630',
+'012025072',
+'012025235',
+'012025331',
+'012027454',
+'012028234',
+'012029346',
+'012031195',
+'012031288',
+'012031514',
+'012031515',
+'012032429',
+'012033114',
+'012033216',
+'012034495',
+'012034532')
+ --_____________________________________________________________________________
+ 
+--______________________________________________________________________________
+select distinct
+SERVICE_NAME
+,DWHSH.GENERAL_1
+,DWHSH.INDUSTRY_GENERAL_1
+from SV_BUS.SERVICE_HISTORY DWHSH
+JOIN SV_BUS.ACCOUNT ACC ON DWHSH.CUSTOMER_NODE_ID = ACC.CUSTOMER_NODE_ID
+      AND ACCOUNT_NAME NOT IN (22643580,60086806,37052669,17837525,99398691)
+JOIN SV_PROD.H3AT_PBE_EVENT_AUDIT@SV9PCT01.IT.INTERNAL HPEA ON  ACC.ACCOUNT_NAME = to_char (HPEA.X_BILL_SITE_ID)
+      AND HPEA.TASK_QUEUE_ID=1001017635
+      AND HPEA.ERROR_MESSAGE is null
+where 1=1
+and  DWHSH. EFFECTIVE_END_DATE > sysdate
+and DWHSH.SERVICE_STATUS_CODE not in (9)
+and DWHSH. LAST_MODIFIED < TO_DATE('03-02-2020 00:00:00','DD-MM-YYYY HH24:MI:SS')
+and DWHSH.SERVICE_NAME NOT LIKE 'BSP%'

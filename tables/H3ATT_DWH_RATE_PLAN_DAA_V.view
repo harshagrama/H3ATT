@@ -1,0 +1,119 @@
+#---------------------------------------------------------------------------
+#
+#   File:       H3ATT_DWH_RATE_PLAN_DAA_V.view
+#   Created:    23-Mar-2020 09:38:10
+#   Creator:    t_nagavaha  (Admin Harshendrakumar Nagavarapalya Nagaraj)
+#   $Revision:$
+#   $Id:$
+#
+# ===========================================================================
+# COPYRIGHT (C) 2020 CSG SYSTEMS INTERNATIONAL, INC. AND/OR ITS 
+# AFFILIATES ("CSG INTERNATIONAL"). ALL RIGHTS RESERVED. THE INFORMATION
+# CONTAINED WITHIN THIS DOCUMENT OR APPLICATION IS THE PROPERTY OF CSG 
+# INTERNATIONAL, WHICH IS CONFIDENTIAL AND PROTECTED BY INTERNATIONAL 
+# COPYRIGHT LAWS AND ANY UNAUTHORISED USE OF THIS DOCUMENT OR APPLICATION 
+# OR ITS CONTENTS MAY VIOLATE COPYRIGHT, TRADEMARK, AND OTHER LAWS. NO 
+# PART OF THIS DOCUMENT OR APPLICATION MAY BE PHOTOCOPIED, REPRODUCED 
+# OR TRANSLATED IN ANY FORM OR BY ANY MEANS, OR STORED IN A RETRIEVAL 
+# SYSTEM OR TRANSMITTED ELECTRONICALLYOR OTHERWISE, WITHOUT THE PRIOR 
+# WRITTEN CONSENT OF CSG INTERNATIONAL.
+# ===========================================================================
+#
+# NOTES:
+#   1. Keep all column and view names under 32 characters long
+#   2. Column details are ignored for views by must be supplied for
+#      documentation
+#
+# REVISION HISTORY:
+#   $Log:$
+#
+#---------------------------------------------------------------------------
+
+A.3 H3ATT_DWH_RATE_PLAN_DAA_V
+
+Uses
+    Data warehouse view that emulates the rate plan  from Hutchison into the format / structure as existing in ARGOS.
+
+Column Details
+
+    PREISMODELL             VARCHAR(255)        NOT NULL
+        
+    EVENT_TYPE_ID           NUMBER(8)           NOT NULL
+        
+    EVENT_SUB_TYPE_ID       NUMBER(8)           NOT NULL
+        
+    CHARGEBAND_ID           NUMBER(8)           NOT NULL
+        
+    IS_PEAK                 NUMBER(2)           NOT NULL
+        
+    SURCHARGE               NUMBER(12,8)        NOT NULL
+       
+    CHARGE                  NUMBER(12,8)        NOT NULL
+        
+    EFFECTIVE_START_DATE    DATE                NOT NULL
+    
+    EFFECTIVE_END_DATE      DATE                NOT NULL
+        
+View Definition
+
+SELECT DECODE(rp.product_name,'* Any *','GLOBAL',SUBSTR (rp.product_name,LENGTH('H3ATT_RP_')+1)) AS PREISMODELL,
+  CASE
+    WHEN daa.index3_value > 10000
+    THEN
+      (SELECT result1_value
+      FROM derived_attribute_array
+      WHERE derived_attribute_id=31001074
+      AND index1_value          ='REFERENCE_TYPE'
+      AND index2_value          ='EVENT_TYPE_CODE'
+      AND index3_value          = daa.index3_value
+      )
+    ELSE daa.index3_value
+  END AS EVENT_TYPE_ID,
+  CASE
+    WHEN daa.index4_value > 200000
+    THEN
+      (SELECT result1_value
+      FROM derived_attribute_array
+      WHERE derived_attribute_id=31001074
+      AND index1_value          ='REFERENCE_TYPE'
+      AND index2_value          ='EVENT_SUB_TYPE_CODE'
+      AND index3_value          = daa.index4_value
+      )
+    ELSE daa.index4_value
+  END                                            AS EVENT_SUB_TYPE_ID,
+  daa.index5_value                               AS CHARGEBAND_ID,
+  DECODE (daa.index6_value,2,0,daa.index6_value) AS IS_PEAK,
+  REPLACE (daa.result1_value,'.',',')            AS SURCHARGE,
+  REPLACE (daa.result4_value,'.',',')            AS CHARGE,
+  daa.effective_start_date,
+  daa.effective_end_date
+FROM derived_attribute_array daa
+JOIN
+  (SELECT product_id,
+    product_name,
+    SUBSTR(description, 1, 80)
+  FROM product_history
+  WHERE companion_ind_code = 1
+  AND sysdate BETWEEN effective_start_date AND effective_end_date
+  AND product_name LIKE 'H3ATT%RP%'
+  UNION
+  SELECT reference_code,
+    abbreviation,
+    SUBSTR(description, 1, 80)
+  FROM reference_code
+  WHERE reference_type_id =
+    (SELECT reference_type_id
+    FROM reference_type
+    WHERE type_label = 'H3G_CMN_WC_NA_EVENT_TYPES'
+    )
+  AND reference_code IN (-1, 0)
+  ORDER BY 2
+  ) rp
+ON daa.index2_value     = rp.product_id
+WHERE 1                 =1
+AND derived_attribute_id=31000954
+
+
+#
+#   End (of H3ATT_DWH_RATE_PLAN_DAA_V.view)
+#

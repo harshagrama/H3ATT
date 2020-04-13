@@ -1,0 +1,206 @@
+#---------------------------------------------------------------------------
+#
+#   File:       H3ATT_DWH_CN_HISTORY_V.view
+#   Created:    19-Feb-2020 09:49:36
+#   Creator:    t_nagavaha  (Admin Harshendrakumar Nagavarapalya Nagaraj)
+#   $Revision: 1.3 $
+#   $Id: H3ATT_DWH_CN_HISTORY_V.view,v 1.3 2020/03/04 16:05:19 t_nagavaha Exp $
+#
+# ===========================================================================
+# COPYRIGHT (C) 2020 CSG SYSTEMS INTERNATIONAL, INC. AND/OR ITS 
+# AFFILIATES ("CSG INTERNATIONAL"). ALL RIGHTS RESERVED. THE INFORMATION
+# CONTAINED WITHIN THIS DOCUMENT OR APPLICATION IS THE PROPERTY OF CSG 
+# INTERNATIONAL, WHICH IS CONFIDENTIAL AND PROTECTED BY INTERNATIONAL 
+# COPYRIGHT LAWS AND ANY UNAUTHORISED USE OF THIS DOCUMENT OR APPLICATION 
+# OR ITS CONTENTS MAY VIOLATE COPYRIGHT, TRADEMARK, AND OTHER LAWS. NO 
+# PART OF THIS DOCUMENT OR APPLICATION MAY BE PHOTOCOPIED, REPRODUCED 
+# OR TRANSLATED IN ANY FORM OR BY ANY MEANS, OR STORED IN A RETRIEVAL 
+# SYSTEM OR TRANSMITTED ELECTRONICALLYOR OTHERWISE, WITHOUT THE PRIOR 
+# WRITTEN CONSENT OF CSG INTERNATIONAL.
+# ===========================================================================
+#
+# NOTES:
+#   1. Keep all column and view names under 32 characters long
+#   2. Column details are ignored for views by must be supplied for
+#      documentation
+#
+# REVISION HISTORY:
+#   $Log: H3ATT_DWH_CN_HISTORY_V.view,v $
+#   Revision 1.3  2020/03/04 16:05:19  t_nagavaha
+#   Ticket CF-9056: SALES_CHANNEL_CODE, Should be a NUMBER.
+#
+#   Revision 1.2  2020/03/03 11:10:38  t_nagavaha
+#   Ticket CF-9056: Fixed GENERAL_4 and SALES_CHANNEL_CODE
+#
+#   Revision 1.1  2020/02/27 07:30:26  t_nagavaha
+#   Ticket CF-9028: Adding CUSTOMER_NODE_HISTORY view for DWH
+#
+#
+#---------------------------------------------------------------------------
+
+A.3 H3ATT_DWH_CN_HISTORY_V
+
+Uses
+    Data warehouse view that emulates the content from Hutchison into the format / structure as existing in ARGOS.
+
+Column Details
+
+    CUSTOMER_NODE_ID             NOT NULL NUMBER(15)    
+    LAST_MODIFIED                NOT NULL DATE          
+    EFFECTIVE_START_DATE         NOT NULL DATE          
+    EFFECTIVE_END_DATE           NOT NULL DATE          
+    CUSTOMER_NODE_TYPE_ID        NOT NULL NUMBER(8)     
+    PRIMARY_IDENTIFIER                    VARCHAR2(80)  
+    PRIMARY_IDENTIFIER2                   VARCHAR2(80)  
+    NODE_NAME                    NOT NULL VARCHAR2(200) 
+    NODE_NAME_UPPERCASE          NOT NULL VARCHAR2(200) 
+    NODE_NAME_SOUNDEX            NOT NULL VARCHAR2(10)  
+    ATLANTA_GROUP_ID             NOT NULL NUMBER(8)     
+    ATLANTA_OPERATOR_ID          NOT NULL NUMBER(8)     
+    GL_CODE_ID                            NUMBER(8)     
+    PARENT_CUSTOMER_NODE_ID               NUMBER(15)    
+    HIERARCHY_LEVEL              NOT NULL NUMBER(3)     
+    ROOT_CUSTOMER_NODE_ID                 NUMBER(15)    
+    CUSTOMER_NODE_STATUS_CODE    NOT NULL NUMBER(4)     
+    CREATED_DATE                 NOT NULL DATE          
+    ACTIVE_DATE                           DATE          
+    PERSON_ID                    NOT NULL NUMBER(15)    
+    PRIME_ACCOUNT_ID             NOT NULL NUMBER(15)    
+    REPORT_LEVEL_CODE            NOT NULL NUMBER(2)     
+    POSTAL_ADDRESS_ID                     NUMBER(15)    
+    SITE_ADDRESS_ID                       NUMBER(15)    
+    CURRENCY_ID                           NUMBER(8)     
+    SCHEDULE_ID                           NUMBER(15)    
+    BILLING_PRIORITY                      NUMBER(4)     
+    BILLING_COMPLEXITY                    NUMBER(10)    
+    BILLING_CONFIGURATION_CODE            NUMBER(8)     
+    SUPPRESS_IND_CODE                     NUMBER(1)     
+    SUPPRESS_BILL_CYCLE_COUNT             NUMBER(2)     
+    SUPPRESS_UNTIL_ISSUE_DATE             DATE          
+    TURNOVER                              NUMBER(19,3)  
+    TURNOVER_CURRENCY_ID                  NUMBER(8)     
+    CREDIT_LIMIT                          NUMBER(19,3)  
+    CREDIT_LIMIT_CURRENCY_ID              NUMBER(8)     
+    EXPECTED_REVENUE                      NUMBER(19,3)  
+    EXPECTED_REVENUE_CURRENCY_ID          NUMBER(8)     
+    CREDIT_RATING_CODE                    NUMBER(8)     
+    CREDIT_COMMENTS                       VARCHAR2(255) 
+    TAX_CLASS_CODE                        NUMBER(8)     
+    PAYMENT_METHOD_CODE                   NUMBER(8)     
+    PAYMENT_LOCATION_CODE                 NUMBER(8)     
+    BANK_CODE                             NUMBER(8)     
+    BRANCH_CODE                           NUMBER(8)     
+    BANK_ACCOUNT_NAME                     VARCHAR2(80)  
+    BANK_ACCOUNT_NUMBER                   VARCHAR2(60)  
+    BANK_ACCOUNT_REF                      VARCHAR2(15)  
+    CARD_TYPE_CODE                        NUMBER(8)     
+    CARD_NUMBER                           VARCHAR2(60)  
+    CARD_EXPIRY_DATE                      DATE          
+    ASSIGNED_OPERATOR_ID                  NUMBER(8)     
+    SALES_CHANNEL_CODE                    NUMBER(8)     
+    COMPANY_NUMBER                        VARCHAR2(15)  
+    INDUSTRY_CODE                         NUMBER(8)     
+    REGION_CODE                           NUMBER(8)     
+    GENERAL_1                             VARCHAR2(255) 
+    GENERAL_2                             VARCHAR2(255) 
+    GENERAL_3                             VARCHAR2(255) 
+    GENERAL_4                             VARCHAR2(255) 
+    GENERAL_5                             VARCHAR2(255) 
+    GENERAL_6                             VARCHAR2(255) 
+    GENERAL_7                             VARCHAR2(255) 
+    GENERAL_8                             VARCHAR2(255) 
+    GENERAL_9                             VARCHAR2(255) 
+    GENERAL_10                            VARCHAR2(255) 
+    BANK_ACCOUNT_STATUS_CODE              NUMBER(4)     
+    CARD_NAME                             VARCHAR2(128) 
+    CARD_STATUS_CODE                      NUMBER(4)     
+
+
+View Definition
+
+SELECT 
+    CNH.CUSTOMER_NODE_ID,            
+    CNH.LAST_MODIFIED,               
+    CNH.EFFECTIVE_START_DATE,        
+    CNH.EFFECTIVE_END_DATE,          
+    DECODE(CNH.CUSTOMER_NODE_TYPE_ID,4100001,25000000,CNH.CUSTOMER_NODE_TYPE_ID) as CUSTOMER_NODE_TYPE_ID,       
+    CNH.PRIMARY_IDENTIFIER,          
+    CNH.PRIMARY_IDENTIFIER2,         
+    CNH.NODE_NAME,                   
+    CNH.NODE_NAME_UPPERCASE,         
+    CNH.NODE_NAME_SOUNDEX,           
+    CNH.ATLANTA_GROUP_ID,            
+    CNH.ATLANTA_OPERATOR_ID,         
+    CNH.GL_CODE_ID,                  
+    CNH.PARENT_CUSTOMER_NODE_ID,     
+    CNH.HIERARCHY_LEVEL,             
+    CNH.ROOT_CUSTOMER_NODE_ID,       
+    CNH.CUSTOMER_NODE_STATUS_CODE,   
+    CNH.CREATED_DATE,                
+    CNH.ACTIVE_DATE,                 
+    CNH.PERSON_ID,                   
+    CNH.PRIME_ACCOUNT_ID,            
+    CNH.REPORT_LEVEL_CODE,           
+    CNH.POSTAL_ADDRESS_ID,           
+    CNH.SITE_ADDRESS_ID,             
+    CNH.CURRENCY_ID,                 
+    CNH.SCHEDULE_ID,                 
+    CNH.BILLING_PRIORITY,            
+    CNH.BILLING_COMPLEXITY,          
+    CNH.BILLING_CONFIGURATION_CODE,  
+    CNH.SUPPRESS_IND_CODE,           
+    CNH.SUPPRESS_BILL_CYCLE_COUNT,   
+    CNH.SUPPRESS_UNTIL_ISSUE_DATE,   
+    CNH.TURNOVER,                    
+    CNH.TURNOVER_CURRENCY_ID,        
+    CNH.CREDIT_LIMIT,                
+    CNH.CREDIT_LIMIT_CURRENCY_ID,    
+    CNH.EXPECTED_REVENUE,            
+    CNH.EXPECTED_REVENUE_CURRENCY_ID,
+    CNH.CREDIT_RATING_CODE,          
+    CNH.BANK_ACCOUNT_REF as CREDIT_COMMENTS,             
+    DECODE(CNH.TAX_CLASS_CODE,6,1,
+                              8,2,CNH.TAX_CLASS_CODE) TAX_CLASS_CODE,              
+    CNH.PAYMENT_METHOD_CODE,         
+    CNH.PAYMENT_LOCATION_CODE,       
+    CNH.BANK_CODE,                   
+    CNH.BRANCH_CODE,                 
+    CNH.BANK_ACCOUNT_NAME,           
+    CNH.BANK_ACCOUNT_NUMBER,         
+    CNH.BANK_ACCOUNT_REF,            
+    CNH.CARD_TYPE_CODE,              
+    CNH.CARD_NUMBER,                 
+    CNH.CARD_EXPIRY_DATE,            
+    CNH.ASSIGNED_OPERATOR_ID,        
+    TO_NUMBER (CNH.GENERAL_9) as SALES_CHANNEL_CODE,          
+    CNH.COMPANY_NUMBER,              
+    CNH.INDUSTRY_CODE,               
+    CNH.REGION_CODE,                 
+    SUBSTR(ACC.ACCOUNT_NAME,4) as GENERAL_1,                     
+    CNH.GENERAL_6 as GENERAL_2,                   
+    CNH.GENERAL_3,                   
+    (SELECT ABBREVIATION 
+       FROM REFERENCE_CODE 
+      WHERE REFERENCE_TYPE_ID=4100028
+        AND REFERENCE_CODE=CNH.SALES_CHANNEL_CODE ) as GENERAL_4,                   
+    (SELECT CNDA.RESULT1_VALUE 
+       FROM CUSTOMER_NODE_DA_ARRAY CNDA 
+      WHERE CNDA.CUSTOMER_NODE_ID = CNH.CUSTOMER_NODE_ID
+        AND CNDA.DERIVED_ATTRIBUTE_ID=31001174 
+        AND CNDA.INDEX1_VALUE=6
+        AND CNH.EFFECTIVE_START_DATE BETWEEN CNDA.EFFECTIVE_START_DATE AND CNDA.EFFECTIVE_END_DATE) as GENERAL_5,                   
+    CNH.GENERAL_6,                   
+    CNH.GENERAL_7,                   
+    CNH.GENERAL_8,                   
+    CNH.GENERAL_9,                   
+    CNH.GENERAL_10,                  
+    CNH.BANK_ACCOUNT_STATUS_CODE,    
+    CNH.CARD_NAME,                   
+    CNH.CARD_STATUS_CODE
+FROM CUSTOMER_NODE_HISTORY CNH
+JOIN ACCOUNT ACC ON CNH.CUSTOMER_NODE_ID=ACC.CUSTOMER_NODE_ID AND ACC.GENERAL_2 = 'CLARIFY'
+WHERE 1=1    
+
+#
+#   End (of H3ATT_DWH_CN_HISTORY_V.view)
+#

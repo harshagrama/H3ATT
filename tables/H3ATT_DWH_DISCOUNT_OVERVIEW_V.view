@@ -1,0 +1,183 @@
+#---------------------------------------------------------------------------
+#
+#   File:       H3ATT_DWH_DISCOUNT_OVERVIEW_V.view
+#   Created:    23-Mar-2020 15:32:37
+#   Creator:    t_nagavaha  (Admin Harshendrakumar Nagavarapalya Nagaraj)
+#   $Revision: 1.2 $
+#   $Id: H3ATT_DWH_DISCOUNT_OVERVIEW_V.view,v 1.2 2020/03/24 17:06:59 t_nagavaha Exp $
+#
+# ===========================================================================
+# COPYRIGHT (C) 2020 CSG SYSTEMS INTERNATIONAL, INC. AND/OR ITS 
+# AFFILIATES ("CSG INTERNATIONAL"). ALL RIGHTS RESERVED. THE INFORMATION
+# CONTAINED WITHIN THIS DOCUMENT OR APPLICATION IS THE PROPERTY OF CSG 
+# INTERNATIONAL, WHICH IS CONFIDENTIAL AND PROTECTED BY INTERNATIONAL 
+# COPYRIGHT LAWS AND ANY UNAUTHORISED USE OF THIS DOCUMENT OR APPLICATION 
+# OR ITS CONTENTS MAY VIOLATE COPYRIGHT, TRADEMARK, AND OTHER LAWS. NO 
+# PART OF THIS DOCUMENT OR APPLICATION MAY BE PHOTOCOPIED, REPRODUCED 
+# OR TRANSLATED IN ANY FORM OR BY ANY MEANS, OR STORED IN A RETRIEVAL 
+# SYSTEM OR TRANSMITTED ELECTRONICALLYOR OTHERWISE, WITHOUT THE PRIOR 
+# WRITTEN CONSENT OF CSG INTERNATIONAL.
+# ===========================================================================
+#
+# NOTES:
+#   1. Keep all column and view names under 32 characters long
+#   2. Column details are ignored for views by must be supplied for
+#      documentation
+#
+# REVISION HISTORY:
+#   $Log: H3ATT_DWH_DISCOUNT_OVERVIEW_V.view,v $
+#   Revision 1.2  2020/03/24 17:06:59  t_nagavaha
+#   Ticket CF-9218: CUD, ITD and PCD logic is added as per DWH requirement
+#
+#   Revision 1.1  2020/03/23 15:05:02  t_nagavaha
+#   Ticket CF-9218: Initial Revision
+#
+#
+#---------------------------------------------------------------------------
+
+A.3 H3ATT_DWH_DISCOUNT_OVERVIEW_V
+
+Uses
+    DESCRIPTION GOES HERE
+
+Column Details
+
+    CUD_DISCOUNT_PRD            VARCHAR(255)        NOT NULL
+        
+    CUD_CRM_REF                 NUMBER(12)          NOT NULL
+        
+    CUD_DISCOUNT_PCT            NUMBER(12,2)        NOT NULL
+        
+    CUD_START                   DATE                NOT NULL
+        
+    CUD_END                     DATE                NOT NULL
+        
+    EFT_DISCOUNT_PRD            VARCHAR(255)        NOT NULL
+        
+    EFT_CRM_REF                 NUMBER(12)          NOT NULL
+        
+    EFT_DISCOUNT_PCT            NUMBER(12,2)        NOT NULL
+        
+    EFT_START                   DATE                NOT NULL
+        
+    EFT_END                     DATE                NOT NULL
+    
+    ITD_DISCOUNT_PRD            VARCHAR(255)        NOT NULL
+        
+    ITD_CRM_REF                 NUMBER(12)          NOT NULL
+        
+    ITD_DISCOUNT_PCT            NUMBER(12,2)        NOT NULL
+        
+    ITD_START                   DATE                NOT NULL
+        
+    ITD_END                     DATE                NOT NULL
+    
+    PCD_DISCOUNT_PRD            VARCHAR(255)        NOT NULL
+        
+    PCD_CRM_REF                 NUMBER(12)          NOT NULL
+        
+    PCD_DISCOUNT_PCT            NUMBER(12,2)        NOT NULL
+        
+    PCD_START                   DATE              NOT NULL
+        
+    PCD_END                     DATE                NOT NULL
+
+View Definition
+
+SELECT SUBSTR(ac.account_name,4) as ACCOUNT_NAME,
+  ac.customer_node_id ,
+  DECODE(itd.index1_value,31001181,'EFT_discount',itd.index1_value) AS ITD_DISCOUNT_DESCR ,
+  itd.result2_value                                                 AS ITD_DISCOUNT_PCT ,
+  itd.effective_start_date                                          AS ITD_START ,
+  itd.effective_end_date                                            AS ITD_END ,
+  DECODE (cud.result2_value,1,'Usage_Discount',NULL)                AS CUD_DISCOUNT_DESCR ,
+  REPLACE(cud.index1_value,'.',',')                                                  AS CUD_LOWER_LIMIT ,
+  DECODE (cud.result2_value,1,'Stepped',NULL)                       AS CUD_TYPE ,
+  cud.result1_value                                                 AS CUD_DISCOUNT_PCT ,
+  cud.effective_start_date                                          AS CUD_START ,
+  cud.effective_end_date                                            AS CUD_END ,
+  pcd.PCD_PRODUCT_DESCR ,
+  pcd.index3_value         AS PCD_PRODUCT_CLASS ,
+  pcd.result2_value        AS PCD_DISCOUNT_PCT ,
+  pcd.effective_start_date AS PCD_START ,
+  pcd.effective_end_date   AS PCD_END
+FROM service_history sh
+JOIN account ac
+ON sh.customer_node_id=ac.customer_node_id
+AND ac.general_2      ='CLARIFY'
+AND sh.service_name   =ac.account_name
+LEFT JOIN service_da_array itd
+ON itd.service_id           =sh.service_id
+AND itd.derived_attribute_id=31001434
+AND itd.index1_value        =31001181
+LEFT OUTER JOIN
+  (SELECT *
+  FROM
+    (SELECT ac.account_name ,
+      ac.customer_node_id ,
+      DECODE(pd.index1_value,31001221,'Service_Discount',pd.index1_value) AS PCD_PRODUCT_DESCR ,
+      pd.result2_value ,
+      pd.effective_start_date ,
+      pd.effective_end_date
+    FROM service_history sh
+    JOIN account ac
+    ON sh.customer_node_id=ac.customer_node_id
+    AND ac.general_2      ='CLARIFY'
+    AND sh.service_name   =ac.account_name
+    LEFT JOIN service_da_array pd
+    ON pd.service_id           =sh.service_id
+    AND pd.derived_attribute_id=31001434
+    AND pd.index1_value        =31001221
+    WHERE 1                    =1
+    AND pd.result2_value      IS NOT NULL
+    ) pd,
+    (SELECT index3_value
+    FROM derived_attribute_array
+    WHERE derived_attribute_id=31001614
+    AND index1_value          =148
+    ) daa
+  ) pcd ON sh.customer_node_id=pcd.customer_node_id
+AND sysdate BETWEEN pcd.effective_start_date AND pcd.effective_end_date
+LEFT OUTER JOIN
+  (SELECT cd.account_name ,
+    cd.customer_node_id ,
+    daa.index1_value ,
+    daa.index2_value ,
+    daa.result1_value ,
+    daa.result2_value ,
+    daa.effective_start_date ,
+    daa.effective_end_date
+  FROM
+    (SELECT ac.account_name ,
+      ac.customer_node_id
+    FROM service_history sh
+    JOIN account ac
+    ON sh.customer_node_id=ac.customer_node_id
+    AND ac.general_2      ='CLARIFY'
+    AND sh.service_name   =ac.account_name
+    JOIN product_instance_history pih
+    ON sh.base_product_instance_id=pih.base_product_instance_id
+    AND product_id                =31001222
+    WHERE 1                       =1
+    ) cd,
+    (SELECT index1_value,
+      index2_value,
+      result1_value,
+      result2_value,
+      effective_start_date,
+      effective_end_date
+    FROM derived_attribute_array
+    WHERE derived_attribute_id=31001534
+    AND result1_value         > 0
+    ) daa
+  ) cud ON sh.customer_node_id=cud.customer_node_id
+AND sysdate BETWEEN cud.effective_start_date AND cud.effective_end_date
+WHERE 1                 =1
+AND (itd.result2_value IS NOT NULL
+OR pcd.result2_value   IS NOT NULL
+OR cud.result1_value   IS NOT NULL)
+ORDER BY ac.account_name
+
+#
+#   End (of H3ATT_DWH_DISCOUNT_OVERVIEW_V.view)
+#
